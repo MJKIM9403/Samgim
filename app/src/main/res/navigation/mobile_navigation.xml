@@ -3,23 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_todolist">
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/navigation_todolist"
         android:name="com.example.samgim.ui.home.HomeFragment"
-        android:label="@string/title_home"
+        android:label="@string/title_todolist"
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_character"
         android:name="com.example.samgim.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_character"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_history"
         android:name="com.example.samgim.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_history"
         tools:layout="@layout/fragment_notifications" />
 </navigation>
