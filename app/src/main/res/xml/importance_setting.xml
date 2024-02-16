@@ -1,0 +1,47 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory app:title="중요도">
+        <SeekBarPreference
+            app:defaultValue="1"
+            app:title="식사"
+            app:key="workout"
+            app:showSeekBarValue="true"
+            app:min="1"
+            android:max="5"
+            />
+        <SeekBarPreference
+            app:defaultValue="1"
+            app:title="공부"
+            app:key="workout"
+            app:showSeekBarValue="true"
+            app:min="1"
+            android:max="5"
+            />
+        <SeekBarPreference
+            app:defaultValue="1"
+            app:title="운동"
+            app:key="workout"
+            app:showSeekBarValue="true"
+            app:min="1"
+            android:max="5"
+            />
+        <SeekBarPreference
+            app:defaultValue="1"
+            app:title="수면"
+            app:key="workout"
+            app:showSeekBarValue="true"
+            app:min="1"
+            android:max="5"
+            />
+        <SeekBarPreference
+            app:defaultValue="1"
+            app:title="기타"
+            app:key="workout"
+            app:showSeekBarValue="true"
+            app:min="1"
+            android:max="5"
+            />
+    </PreferenceCategory>
+
+</PreferenceScreen>
