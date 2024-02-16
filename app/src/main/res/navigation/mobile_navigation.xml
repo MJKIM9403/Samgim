@@ -8,13 +8,13 @@
     <fragment
         android:id="@+id/navigation_todolist"
         android:name="com.example.samgim.ui.home.HomeFragment"
-        android:label="@string/title_todolist"
+        android:label="@string/title_character"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_character"
         android:name="com.example.samgim.ui.dashboard.DashboardFragment"
-        android:label="@string/title_character"
+        android:label="@string/title_todolist"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment

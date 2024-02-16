@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_todolist"
-        android:title="@string/title_todolist" />
-
-    <item
         android:id="@+id/navigation_character"
         android:title="@string/title_character" />
+
+    <item
+        android:id="@+id/navigation_todolist"
+        android:title="@string/title_todolist" />
 
     <item
         android:id="@+id/navigation_history"
