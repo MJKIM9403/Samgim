@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="todo_array">
+        <item>카테고리를 선택하세요</item>
+        <item>식사</item>
+        <item>공부</item>
+        <item>운동</item>
+        <item>수면</item>
+        <item>기타</item>
+    </string-array>
+
+</resources>
