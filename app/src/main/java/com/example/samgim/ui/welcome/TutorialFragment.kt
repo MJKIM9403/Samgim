@@ -39,19 +39,29 @@ class TutorialFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.imageView.setImageResource(image!!)
         binding.textView.text = text
-    }
 
+        // 4번째 페이지에만 버튼 보이도록 설정
+        if (arguments?.getInt("position", 0) == 3) {
+            binding.tutorialButton.visibility = View.VISIBLE
+            binding.tutorialButton.setOnClickListener {
+                // 버튼 클릭 시 수행할 작업 추가
+            }
+        } else {
+            binding.tutorialButton.visibility = View.GONE
+        }
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
     companion object{
-        fun newInstance(image: Int, text: String) =
+        fun newInstance(image: Int, text: String, position: Int) =
             TutorialFragment().apply{
                 arguments = Bundle().apply {
                     putInt("image", image)
                     putString("text", text)
+                    putInt("position", position)
                 }
             }
     }
