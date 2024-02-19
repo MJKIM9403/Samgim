@@ -17,6 +17,7 @@ class WelcomeActivity : AppCompatActivity() {
 
             val welcomeBtn = findViewById<Button>(R.id.welcomeBtn)
 
+
 //            welcomeBtn.setOnClickListener {
 //                val intent = Intent(this, TutorialActivity::class.java)
 //                startActivity(intent)
