@@ -18,22 +18,22 @@ class WelcomeActivity : AppCompatActivity() {
             val welcomeBtn = findViewById<Button>(R.id.welcomeBtn)
 
 
-//            welcomeBtn.setOnClickListener {
-//                val intent = Intent(this, TutorialActivity::class.java)
-//                startActivity(intent)
-//
-//                val decorView: View = window.decorView
-//                var uiOption: Int = decorView.systemUiVisibility
-//
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-//                    uiOption = uiOption or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-//                    uiOption = uiOption or View.SYSTEM_UI_FLAG_FULLSCREEN
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-//                    uiOption = uiOption or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-//
-//                decorView.systemUiVisibility = uiOption
-//            }
+            welcomeBtn.setOnClickListener {
+                val intent = Intent(this, TutorialActivity::class.java)
+                startActivity(intent)
+
+                val decorView: View = window.decorView
+                var uiOption: Int = decorView.systemUiVisibility
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+                    uiOption = uiOption or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+                    uiOption = uiOption or View.SYSTEM_UI_FLAG_FULLSCREEN
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+                    uiOption = uiOption or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+
+                decorView.systemUiVisibility = uiOption
+            }
         }
 
     }

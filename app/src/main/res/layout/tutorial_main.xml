@@ -16,7 +16,7 @@
         app:ci_width="7dp"
         app:ci_margin="4dp" />
 
-    <androidx.viewpager2.widget.ViewPager2
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
