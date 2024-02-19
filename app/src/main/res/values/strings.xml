@@ -4,4 +4,6 @@
     <string name="title_todolist">투두리스트</string>
     <string name="title_character">캐릭터</string>
     <string name="title_history">히스토리</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

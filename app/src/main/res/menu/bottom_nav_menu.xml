@@ -7,10 +7,14 @@
 
     <item
         android:id="@+id/navigation_todolist"
-        android:title="@string/title_todolist" />
+        android:title="투두리스트" />
 
     <item
         android:id="@+id/navigation_history"
         android:title="@string/title_history" />
+
+<!--    <item-->
+<!--        android:id="@+id/navigation_setting"-->
+<!--        android:title="설정" />-->
 
 </menu>

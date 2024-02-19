@@ -43,7 +43,7 @@ android {
 }
 
 dependencies {
-
+    implementation("me.relex:circleindicator:2.1.6")
     implementation ("androidx.activity:activity-ktx:1.7.2")
     implementation ("androidx.fragment:fragment-ktx:1.6.0")
 

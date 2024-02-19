@@ -6,20 +6,20 @@
     app:startDestination="@+id/navigation_todolist">
 
     <fragment
-        android:id="@+id/navigation_todolist"
-        android:name="com.example.samgim.ui.home.HomeFragment"
+        android:id="@+id/navigation_character"
+        android:name="com.example.samgim.ui.character.CharaFragment"
         android:label="@string/title_character"
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_character"
-        android:name="com.example.samgim.ui.dashboard.DashboardFragment"
+        android:id="@+id/navigation_todolist"
+        android:name="com.example.samgim.ui.todolist.TodolistFragment"
         android:label="@string/title_todolist"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_history"
-        android:name="com.example.samgim.ui.notifications.NotificationsFragment"
+        android:name="com.example.samgim.ui.history.HistoryFragment"
         android:label="@string/title_history"
         tools:layout="@layout/fragment_notifications" />
 </navigation>
