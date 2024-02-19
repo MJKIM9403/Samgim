@@ -9,6 +9,7 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.example.samgim.MainActivity
 import com.example.samgim.R
+import com.example.samgim.data.Points
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -33,11 +34,12 @@ class SettingsActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        val mealPoint = sharedPreferences.getInt("mealPoint",1)
-        val studyPoint = sharedPreferences.getInt("studyPoint",1)
-        val workoutPoint = sharedPreferences.getInt("workoutPoint",1)
-        val sleepPoint = sharedPreferences.getInt("sleepPoint",1)
-        val etcPoint = sharedPreferences.getInt("etcPoint",1)
+        val points = Points(sharedPreferences)
+        val mealPoint = points.mealPoint
+        val studyPoint = points.studyPoint
+        val workoutPoint = points.workoutPoint
+        val sleepPoint = points.sleepPoint
+        val etcPoint = points.etcPoint
         val total = mealPoint + studyPoint + workoutPoint + sleepPoint + etcPoint
 
         if(total != 10){
