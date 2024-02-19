@@ -42,10 +42,10 @@ class TutorialActivity : AppCompatActivity() {
 
         override fun getItem(position: Int): Fragment {
             return when (position) {
-                0 -> TutorialFragment.newInstance(R.drawable.img00, "page00")
-                1 -> TutorialFragment.newInstance(R.drawable.img01, "page01")
-                2 -> TutorialFragment.newInstance(R.drawable.img02, "page02")
-                3 -> TutorialFragment.newInstance(R.drawable.img03, "page03")
+                0 -> TutorialFragment.newInstance(R.drawable.img00, "중요도를 체크해보아요!")
+                1 -> TutorialFragment.newInstance(R.drawable.img01, "해야할일을 메모해요!")
+                2 -> TutorialFragment.newInstance(R.drawable.img02, "해야할 일을 완료해보아요!")
+                3 -> TutorialFragment.newInstance(R.drawable.img03, "김밥이 진화!")
                 else -> TutorialFragment.newInstance(R.drawable.img00, "page00")
             }
         }

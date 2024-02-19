@@ -31,27 +31,21 @@ class TutorialFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_tutorial,container, false)
+        _binding = FragmentTutorialBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-//    inflater: LayoutInflater,
-//    container: ViewGroup?,
-//    savedInstanceState: Bundle?
-//    ): View? {
-//        _binding = FragmentTutorialBinding.inflate(inflater, container, false)
-//        return binding.root
-//    }
-override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-    binding.imageView.setImageResource(image!!)
-    binding.textView.text = text
-}
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.imageView.setImageResource(image!!)
+        binding.textView.text = text
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
     companion object{
         fun newInstance(image: Int, text: String) =
             TutorialFragment().apply{
@@ -60,7 +54,5 @@ override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
                     putString("text", text)
                 }
             }
-
     }
-
 }
