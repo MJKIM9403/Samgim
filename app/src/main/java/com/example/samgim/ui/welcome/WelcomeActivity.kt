@@ -21,9 +21,14 @@ class WelcomeActivity : AppCompatActivity() {
 
             welcomeBtn.setOnClickListener {
                 val pref = this.getSharedPreferences("isFirst", Activity.MODE_PRIVATE)
+                val prefEditor: SharedPreferences.Editor = pref.edit()
+
+//                /*테스트용. 이전 접속 기록 삭제*/
+//                prefEditor.remove("isFirst")
+//                prefEditor.apply()
+
                 val isFirst = pref.getBoolean("isFirst", true)
                 if(isFirst){
-                    val prefEditor: SharedPreferences.Editor = pref.edit()
                     prefEditor.putBoolean("isFirst", false)
                     prefEditor.apply()
                     val intent = Intent(this, TutorialActivity::class.java)
