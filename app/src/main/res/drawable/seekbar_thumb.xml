@@ -5,13 +5,9 @@
     android:useLevel="false"  >
     <!-- 배경 색상 -->
     <solid
-        android:color="@color/colorJade"/>
-    <!-- 테두리 색상 (생략 가능) -->
-    <stroke
-        android:width="2dp"
-        android:color="@color/colorHunterGreen" />
+        android:color="@color/teal_200"/>
     <!-- 크기 -->
     <size
-        android:width="13dp"
-        android:height="13dp"/>
+        android:width="20dp"
+        android:height="20dp"/>
 </shape>

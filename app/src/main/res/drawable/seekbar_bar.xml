@@ -13,7 +13,7 @@
     <item android:id="@+id/barProgress" >
         <clip>
             <shape android:shape="line">
-                <stroke android:width="6dp" android:color="@color/colorJade" />
+                <stroke android:width="5dp" android:color="@color/teal_200" />
             </shape>
         </clip>
     </item>

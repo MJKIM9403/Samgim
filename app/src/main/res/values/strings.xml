@@ -4,6 +4,6 @@
     <string name="title_todolist">투두리스트</string>
     <string name="title_character">캐릭터</string>
     <string name="title_history">히스토리</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="importance_setting_msg">- 총 10점을 다섯 항목에 나누어 분배해주세요.</string>
 </resources>
