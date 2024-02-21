@@ -10,12 +10,14 @@ import androidx.preference.PreferenceManager
 import com.example.samgim.MainActivity
 import com.example.samgim.R
 import com.example.samgim.data.Points
+import com.example.samgim.databinding.SettingsActivityBinding
 
 class SettingsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.settings_activity)
+        val binding = SettingsActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
@@ -23,6 +25,10 @@ class SettingsActivity : AppCompatActivity() {
                 .commit()
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        binding.saveBtn.setOnClickListener {
+            saveSettings()
+        }
     }
 
 
@@ -33,6 +39,18 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        super.onBackPressed()
+        saveSettings()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId === android.R.id.home){
+            saveSettings()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    fun saveSettings() {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         val points = Points(sharedPreferences)
         val mealPoint = points.mealPoint
@@ -46,14 +64,9 @@ class SettingsActivity : AppCompatActivity() {
             Toast.makeText(this, "점수의 총합을 10점으로 맞춰주세요.", Toast.LENGTH_SHORT).show()
         }else {
             Toast.makeText(this, "저장되었습니다.", Toast.LENGTH_SHORT).show()
-            super.onBackPressed()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId === android.R.id.home){
-            onBackPressed()
-        }
-        return super.onOptionsItemSelected(item)
     }
 }

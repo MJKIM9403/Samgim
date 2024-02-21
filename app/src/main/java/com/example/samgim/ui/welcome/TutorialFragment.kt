@@ -1,5 +1,6 @@
 package com.example.samgim.ui.welcome
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.samgim.R
 import com.example.samgim.databinding.FragmentTutorialBinding
+import com.example.samgim.ui.importance.SettingsActivity
 
 
 class TutorialFragment : Fragment() {
@@ -24,7 +26,9 @@ class TutorialFragment : Fragment() {
             image = it.getInt("image", 0)
             text = it.getString("text", "")
         }
+
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +41,7 @@ class TutorialFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.imageView.setImageResource(image!!)
         binding.textView.text = text
 
@@ -45,6 +50,8 @@ class TutorialFragment : Fragment() {
             binding.tutorialButton.visibility = View.VISIBLE
             binding.tutorialButton.setOnClickListener {
                 // 버튼 클릭 시 수행할 작업 추가
+                val intent = Intent(requireContext(), SettingsActivity::class.java)
+                startActivity(intent)
             }
         } else {
             binding.tutorialButton.visibility = View.GONE
