@@ -24,8 +24,8 @@ class WelcomeActivity : AppCompatActivity() {
                 val prefEditor: SharedPreferences.Editor = pref.edit()
 
 //                /*테스트용. 이전 접속 기록 삭제*/
-                prefEditor.remove("isFirst")
-                prefEditor.apply()
+//                prefEditor.remove("isFirst")
+//                prefEditor.apply()
 
                 val isFirst = pref.getBoolean("isFirst", true)
                 if(isFirst){
