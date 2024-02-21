@@ -75,4 +75,20 @@
             android:scrollbars="vertical"
             android:lines="5"
             android:gravity="top|left"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="취소"
+                    android:id="@+id/cancelBtn"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="등록"
+                    android:id="@+id/addBtn"/>
+        </LinearLayout>
 </LinearLayout>

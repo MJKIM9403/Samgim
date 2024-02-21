@@ -61,7 +61,7 @@ class HintArrayAdapter(private val context: Context, private val items: List<Str
         }
 
         if (position == 0) {
-            // Hide hint in dropdown list
+            // 드롭다운 목록에서 힌트 가리기
             holder.textView?.text = ""
             view.layoutParams = AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1) // hint 높이 1을 줘서 없애기
             view.visibility = View.GONE

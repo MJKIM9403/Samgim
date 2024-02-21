@@ -1,8 +1,8 @@
 package com.example.samgim
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -11,13 +11,18 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.preference.PreferenceManager
+import androidx.room.Room
 import com.example.samgim.databinding.ActivityMainBinding
+import com.example.samgim.ui.DB.Todolist
+import com.example.samgim.ui.DB.TodolistDB
 import com.example.samgim.ui.importance.SettingsActivity
+import java.text.SimpleDateFormat
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+    private var todoDB: TodolistDB? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +42,15 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+
+        // Room은 메인 스레드에서 접근하려고 하면 에러가 발생하므로 백그라운드에서 작업해야한다.
+        todoDB = TodolistDB.getInstance(this)
+        val r = Runnable {
+            // 데이터에 읽고 쓸 때는 스레드 사용
+        }
+        val thread = Thread(r)
+        thread.start()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -51,4 +65,25 @@ class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+//    private fun dbTest() {
+//        // 테스트 용으로 메모리 생성
+//        val database = Room.inMemoryDatabaseBuilder(
+//            this,
+//            TodolistDB::class.java
+//        ).build()
+//
+//        //
+//        val todo1 = Todolist(
+//            list_id = 1,
+//            title = "제목 테스트",
+//            contents = "내용 테스트",
+//            category = "카테고리 테스트",
+//            regdate = SimpleDateFormat("yyyy-MM-dd"),
+//            todo_check = false)
+//
+//        var dbTodo1 = database.getDAO().readAll()[0]
+//        Log.d("$dbTodo1")
+//
+//    }
 }
