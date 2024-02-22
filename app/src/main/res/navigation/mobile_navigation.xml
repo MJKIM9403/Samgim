@@ -15,7 +15,7 @@
         android:id="@+id/navigation_todolist"
         android:name="com.example.samgim.ui.todolist.TodolistFragment"
         android:label="@string/title_todolist"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_todolist" />
 
     <fragment
         android:id="@+id/navigation_history"

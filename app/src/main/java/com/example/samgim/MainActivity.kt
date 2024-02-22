@@ -65,25 +65,4 @@ class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
-//    private fun dbTest() {
-//        // 테스트 용으로 메모리 생성
-//        val database = Room.inMemoryDatabaseBuilder(
-//            this,
-//            TodolistDB::class.java
-//        ).build()
-//
-//        //
-//        val todo1 = Todolist(
-//            list_id = 1,
-//            title = "제목 테스트",
-//            contents = "내용 테스트",
-//            category = "카테고리 테스트",
-//            regdate = SimpleDateFormat("yyyy-MM-dd"),
-//            todo_check = false)
-//
-//        var dbTodo1 = database.getDAO().readAll()[0]
-//        Log.d("$dbTodo1")
-//
-//    }
 }
