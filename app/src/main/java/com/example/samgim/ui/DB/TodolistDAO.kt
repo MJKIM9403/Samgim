@@ -23,7 +23,7 @@ interface TodolistDAO {
 
     // 날짜별 투두 조회(오늘의 미션 페이지 or 히스토리에서 특정 날짜 검색(추가 할거면))
     @Query("SELECT * FROM todolist WHERE regdate = :regdate ORDER BY listId ASC")
-    fun getAllByRegdate(regdate: Date): MutableList<Todolist>
+    fun getAllByRegdate(regdate: Date): List<Todolist>
 
     // 갱신
     @Update

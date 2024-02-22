@@ -56,7 +56,7 @@ class TodolistFragment : Fragment() {
                 tAdapter.notifyDataSetChanged()
 
                 binding.recyclerView.adapter = tAdapter
-                binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
+                binding.recyclerView.layoutManager = LinearLayoutManager(context)
                 binding.recyclerView.setHasFixedSize(true)
             } catch (e: Exception) {
                 Log.d("tag", "Error - $e")
