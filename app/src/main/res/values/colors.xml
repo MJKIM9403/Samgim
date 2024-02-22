@@ -11,4 +11,10 @@
     <color name="colorLightGray">#D3D3D3</color>
     <color name="colorJade">#00A36C</color>
     <color name="colorHunterGreen">#355E3B</color>
+
+    <color name="mealColor">#FB4D3D</color>
+    <color name="studyColor">#CA1551</color>
+    <color name="workoutColor">#345995</color>
+    <color name="sleepColor">#EAC435</color>
+    <color name="etcColor">#03CEA4</color>
 </resources>
