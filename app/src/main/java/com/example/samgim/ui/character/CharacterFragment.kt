@@ -20,7 +20,7 @@ class CharacterFragment : Fragment() {
     private val binding get() = _binding!!
 
     val levelReqExp: List<Int> = listOf(0, 10, 20, 40, 60, 80)
-    var totalExp: Int = 5 /* 지금까지 누적된 총 경험치*/ // TODO: sharedPreference에서 총 경험치 읽어오기
+    var totalExp: Int = 210 /* 지금까지 누적된 총 경험치*/ // TODO: sharedPreference에서 총 경험치 읽어오기
     var level: Int = checkLevel() /* 현재 레벨 */
     val maxLevel: Int = levelReqExp.size
     var nextLevelReqExp: Int = when{

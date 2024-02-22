@@ -5,8 +5,10 @@ import androidx.lifecycle.ViewModelProvider.NewInstanceFactory.Companion.instanc
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 
 @Database(entities = [Todolist::class], version = 1)
+@TypeConverters(Converters::class)
 abstract class TodolistDB: RoomDatabase() {
     abstract fun getDAO() : TodolistDAO
 

@@ -2,6 +2,7 @@ package com.example.samgim.ui.mission_add
 
 import HintArrayAdapter
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -10,6 +11,7 @@ import android.widget.Button
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.samgim.MainActivity
@@ -19,6 +21,9 @@ import com.example.samgim.ui.DB.Todolist
 import com.example.samgim.ui.DB.TodolistDB
 import com.example.samgim.ui.DB.TodolistDB.Companion.destroyInstance
 import com.example.samgim.ui.mission_list.MissionListActivity
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.Locale
 
 
 class MissionAddActivity : AppCompatActivity() {
@@ -80,7 +85,6 @@ class MissionAddActivity : AppCompatActivity() {
                 title = binding.writeTitle.text.toString(), // 제목
                 contents = binding.writeMemo.text.toString(), // 내용
                 category = binding.result.text.toString(), // 카테고리
-                todo_check = false // 했는지 안했는지 체크
             )
             todoDB?.getDAO()?.insertTodo(newTodo)
         }

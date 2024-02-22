@@ -36,6 +36,7 @@ class TodoAdapter(val context: Context, val todos: List<Todolist>) :
             title?.text = todolist.title
             contents?.text = todolist.contents
             category?.text = todolist.category
+            regdate?.text = todolist.regdate.toString()
             check?.text = todolist.todo_check.toString()
         }
     }
