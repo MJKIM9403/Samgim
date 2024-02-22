@@ -1,5 +1,6 @@
 package com.example.samgim.ui.mission_list
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.samgim.R
 import com.example.samgim.ui.DB.Todolist
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class TodoAdapter(val context: Context, val todos: List<Todolist>) :
     RecyclerView.Adapter<TodoAdapter.Holder>() {
@@ -36,9 +39,16 @@ class TodoAdapter(val context: Context, val todos: List<Todolist>) :
             title?.text = todolist.title
             contents?.text = todolist.contents
             category?.text = todolist.category
-            regdate?.text = todolist.regdate.toString()
+            regdate?.text = dateFormat(todolist.regdate)
             check?.text = todolist.todo_check.toString()
         }
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun dateFormat(regdate: Date): String{
+        val format = SimpleDateFormat("yyyy-MM-dd")
+        val strDate = regdate.let { format.format(it) }
+        return strDate
     }
 
 
