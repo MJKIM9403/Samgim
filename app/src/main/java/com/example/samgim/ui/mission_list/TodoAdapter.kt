@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.samgim.R
 import com.example.samgim.ui.DB.Todolist
@@ -35,12 +36,21 @@ class TodoAdapter(val context: Context, val todos: List<Todolist>) :
         val regdate = itemView?.findViewById<TextView>(R.id.todo_regdate)
         val check = itemView?.findViewById<TextView>(R.id.todo_check)
 
+        @SuppressLint("ResourceAsColor")
         fun bind(todolist: Todolist) {
             title?.text = todolist.title
             contents?.text = todolist.contents
             category?.text = todolist.category
             regdate?.text = dateFormat(todolist.regdate)
             check?.text = todolist.todo_check.toString()
+
+            when(todolist.category){
+                "식사" -> category?.setBackgroundColor(ContextCompat.getColor(context, R.color.mealColor))
+                "공부" -> category?.setBackgroundColor(ContextCompat.getColor(context,R.color.studyColor))
+                "운동" -> category?.setBackgroundColor(ContextCompat.getColor(context,R.color.workoutColor))
+                "수면" -> category?.setBackgroundColor(ContextCompat.getColor(context,R.color.sleepColor))
+                "기타" -> category?.setBackgroundColor(ContextCompat.getColor(context,R.color.etcColor))
+            }
         }
     }
 
