@@ -76,6 +76,12 @@
             android:lines="5"
             android:gravity="top|left"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+                android:id="@+id/result"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,4 +97,6 @@
                     android:text="등록"
                     android:id="@+id/addBtn"/>
         </LinearLayout>
+
+
 </LinearLayout>

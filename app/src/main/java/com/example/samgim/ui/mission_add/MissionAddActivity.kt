@@ -53,48 +53,35 @@ class MissionAddActivity : AppCompatActivity() {
 
 
         // 선택된 값 표시하기 테스트
-//        val result = findViewById<TextView>(R.id.resultText)
-//
-//        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onItemSelected(
-//                // 선택된 경우
-//                parent: AdapterView<*>?,
-//                view: View?,
-//                position: Int,
-//                id: Long
-//            ) {
-//                result.setText(spinner.selectedItem.toString())
-//            }
-//
-//            override fun onNothingSelected(parent: AdapterView<*>?) {
-//                // 아무것도 선택되지 않은 경우
-//            }
-//
-//        }
+        val result = binding.result
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                // 선택된 경우
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                result.setText(spinner.selectedItem.toString())
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                result.setText("") // 선택 안하면 카테고리 값은 안들어감
+            }
+
+        }
 
         todoDB = TodolistDB.getInstance(this)
 
         /* 새로운 cat 객체를 생성, id 이외의 값을 지정 후 DB에 추가 */
         val addRunnable = Runnable {
-            val newTodo = Todolist()
-            newTodo.title = binding.writeTitle.text.toString() // 제목
-            newTodo.contents = binding.writeMemo.text.toString() // 내용
-            binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    // 선택된 경우
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    newTodo.category = spinner.selectedItem.toString() // 카테고리
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    newTodo.category = "" // 선택 안하면 카테고리 값은 안들어감
-                }
-            }
-            newTodo.todo_check = false
+            val newTodo = Todolist(
+                title = binding.writeTitle.text.toString(), // 제목
+                contents = binding.writeMemo.text.toString(), // 내용
+                category = binding.result.text.toString(), // 카테고리
+                todo_check = false // 했는지 안했는지 체크
+            )
             todoDB?.getDAO()?.insertTodo(newTodo)
         }
 

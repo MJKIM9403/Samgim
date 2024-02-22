@@ -9,7 +9,7 @@ import java.util.Calendar
 @Entity(tableName = "todolist")
 data class Todolist(
     @PrimaryKey(autoGenerate = true)
-    val listId: Long,
+    val listId: Long = 0,
     @ColumnInfo(name = "title")
     var title: String,
     @ColumnInfo(name = "contents")
@@ -21,10 +21,6 @@ data class Todolist(
     @ColumnInfo(name = "todo_check")
     var todo_check: Boolean = false
 ) {
-
-
-
-    constructor(): this(1,"","","",false)
 
     override fun toString(): String {
         return "title = $title, " +
