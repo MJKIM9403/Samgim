@@ -2,7 +2,6 @@ package com.example.samgim.ui.mission_add
 
 import HintArrayAdapter
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -11,7 +10,6 @@ import android.widget.Button
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.samgim.MainActivity
@@ -58,7 +56,7 @@ class MissionAddActivity : AppCompatActivity() {
 
 
         // 선택된 값 표시하기 테스트
-        val result = binding.result
+        val result = binding.selectCategory
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -79,12 +77,12 @@ class MissionAddActivity : AppCompatActivity() {
 
         todoDB = TodolistDB.getInstance(this)
 
-        /* 새로운 cat 객체를 생성, id 이외의 값을 지정 후 DB에 추가 */
+        // 새로운 투두 객체를 생성, id 이외의 값을 지정 후 DB에 추가
         val addRunnable = Runnable {
             val newTodo = Todolist(
                 title = binding.writeTitle.text.toString(), // 제목
                 contents = binding.writeMemo.text.toString(), // 내용
-                category = binding.result.text.toString(), // 카테고리
+                category = binding.selectCategory.text.toString(), // 카테고리
             )
             todoDB?.getDAO()?.insertTodo(newTodo)
         }
