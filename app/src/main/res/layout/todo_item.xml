@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginVertical="10dp">
+        android:layout_marginVertical="10dp"
+        >
 
         <TextView
             android:id="@+id/todo_category"
@@ -21,7 +22,10 @@
             android:textStyle="bold"
             android:layout_marginStart="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
         <TextView
             android:id="@+id/todo_title"
@@ -31,15 +35,19 @@
             android:textStyle="bold"
             android:layout_marginStart="20dp"
             app:layout_constraintStart_toEndOf="@id/todo_category"
-            app:layout_constraintTop_toTopOf="@id/todo_category"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
         <TextView
             android:id="@+id/todo_point"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:text="[10pt]"
             app:layout_constraintEnd_toStartOf="@id/check1"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="[10pt]"/>
+            app:layout_constraintTop_toTopOf="parent" />
+
         <CheckBox
             android:id="@+id/check1"
             android:layout_width="wrap_content"
@@ -47,13 +55,15 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="3dp"/>
         <TextView
             android:id="@+id/todo_regdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/todo_category"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:visibility="gone"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
