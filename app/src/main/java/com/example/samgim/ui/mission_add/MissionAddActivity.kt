@@ -4,6 +4,7 @@ import HintArrayAdapter
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -23,6 +24,7 @@ import com.example.samgim.ui.DB.TodolistDB.Companion.destroyInstance
 import com.example.samgim.ui.mission_list.MissionListActivity
 import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.util.Date
 import java.util.Locale
 
 
@@ -55,7 +57,6 @@ class MissionAddActivity : AppCompatActivity() {
         val addBtn = binding.addBtn
         // 일정 취소 버튼
         val cancelBtn = binding.cancelBtn
-
 
         // 선택된 값 표시하기 테스트
         val result = binding.result

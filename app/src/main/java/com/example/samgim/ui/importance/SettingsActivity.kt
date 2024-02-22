@@ -50,9 +50,8 @@ class SettingsActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun saveSettings() {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        val points = Points(sharedPreferences)
+    private fun saveSettings() {
+        val points = Points(this)
         val mealPoint = points.mealPoint
         val studyPoint = points.studyPoint
         val workoutPoint = points.workoutPoint

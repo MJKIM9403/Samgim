@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -20,7 +21,7 @@ class CharacterFragment : Fragment() {
     private val binding get() = _binding!!
 
     val levelReqExp: List<Int> = listOf(0, 10, 20, 40, 60, 80)
-    var totalExp: Int = 210 /* 지금까지 누적된 총 경험치*/ // TODO: sharedPreference에서 총 경험치 읽어오기
+    var totalExp: Int = 45 /* 지금까지 누적된 총 경험치*/ // TODO: sharedPreference에서 총 경험치 읽어오기
     var level: Int = checkLevel() /* 현재 레벨 */
     val maxLevel: Int = levelReqExp.size
     var nextLevelReqExp: Int = when{
@@ -66,9 +67,19 @@ class CharacterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val characterImg: ImageView = binding.characterImg
         val todayExp: TextView = binding.textViewTodayExpVal
         val progressBarExp: ProgressBar = binding.progressBarExp
         val download: TextView = binding.textViewDownload
+
+        when(level){
+            1 -> characterImg.setImageResource(R.drawable.rice01)
+            2 -> characterImg.setImageResource(R.drawable.rice02)
+            3 -> characterImg.setImageResource(R.drawable.rice03)
+            4 -> characterImg.setImageResource(R.drawable.rice04)
+            5 -> characterImg.setImageResource(R.drawable.rice05_1)
+            6 -> characterImg.setImageResource(R.drawable.rice05_3)
+        }
 
         val todayExpVal: Int = 10 // TODO: 오늘 작성한 리스트 중 완료된 값의 점수만 합산
         todayExp.text = "$todayExpVal 점"
