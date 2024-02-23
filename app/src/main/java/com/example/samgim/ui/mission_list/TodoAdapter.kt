@@ -1,7 +1,9 @@
 package com.example.samgim.ui.mission_list
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +17,7 @@ import com.example.samgim.R
 import com.example.samgim.Util.DateFomatter.Companion.dateFormat
 import com.example.samgim.data.Points
 import com.example.samgim.ui.DB.Todolist
+import com.example.samgim.ui.DB.TodolistDB
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -35,6 +38,9 @@ class TodoAdapter(val context: Context, var todos: List<Todolist>) :
     }
 
     inner class Holder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
+        val pref: SharedPreferences = context.getSharedPreferences("state",Activity.MODE_PRIVATE)
+        val prefEditor: SharedPreferences.Editor = pref.edit()
+
         val title = itemView?.findViewById<TextView>(R.id.todo_title)
         val category = itemView?.findViewById<TextView>(R.id.todo_category)
         val regdate = itemView?.findViewById<TextView>(R.id.todo_regdate)
@@ -45,11 +51,13 @@ class TodoAdapter(val context: Context, var todos: List<Todolist>) :
 
         @SuppressLint("ResourceAsColor")
         fun bind(todolist: Todolist) {
+            val selectPoint = Points(context).getPoint(todolist.category)
+
             title?.text = todolist.title
             category?.text = todolist.category
             regdate?.text = dateFormat(todolist.regdate)
             check?.isChecked = todolist.todo_check
-            todoPoint?.text = "[${Points(context).getPoint(todolist.category)}pt]"
+            todoPoint?.text = "[${selectPoint}pt]"
 
             when(todolist.category){
                 "식사" -> category?.setBackgroundColor(ContextCompat.getColor(context, R.color.mealColor))
@@ -59,16 +67,23 @@ class TodoAdapter(val context: Context, var todos: List<Todolist>) :
                 "기타" -> category?.setBackgroundColor(ContextCompat.getColor(context,R.color.etcColor))
             }
 
-//            if(check!!.isChecked){
-//                checkBox.isEnabled = false
-//            }
-//
-//            check.setOnCheckedChangeListener { buttonView, isChecked ->
-//                if(isChecked) {
-//                    Toast.makeText(context, "체크하였습니다.", Toast.LENGTH_SHORT).show()
-//                    buttonView.isEnabled = false
-//                }
-//            }
+            check!!.setOnCheckedChangeListener { buttonView, isChecked ->
+                val todoDB = TodolistDB.getInstance(context)
+                var totalExp = pref.getInt("totalExp",0)
+
+                Thread{
+                    todolist.todo_check = isChecked
+                    todoDB.getDAO().updateTodos(todolist)
+                    if(isChecked) {
+                        totalExp += selectPoint
+                    }else {
+                        totalExp -= selectPoint
+                    }
+
+                    prefEditor.putInt("totalExp", totalExp)
+                    prefEditor.apply()
+                }.start()
+            }
         }
     }
 
