@@ -2,17 +2,23 @@ package com.example.samgim.ui.history
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.samgim.R
 import com.example.samgim.Util.DateFomatter.Companion.dateFormat
 import com.example.samgim.ui.DB.Todolist
+import com.example.samgim.ui.detail.DetailActivity
+import org.w3c.dom.Text
 
-class HistoryAdapter(val context: Context, var todos: List<Todolist>) :
+class HistoryAdapter(val context: Context, var todos: List<Todolist>, private val listener: OnItemClickListener) :
+
     RecyclerView.Adapter<HistoryAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -29,19 +35,30 @@ class HistoryAdapter(val context: Context, var todos: List<Todolist>) :
     }
 
     inner class Holder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
+        val listId = itemView?.findViewById<TextView>(R.id.todo_id)
         val title = itemView?.findViewById<TextView>(R.id.todo_title)
-        val contents = itemView?.findViewById<TextView>(R.id.todo_contents)
+        val contents = itemView?.findViewById<TextView>(R.id.todo_memo)
         val category = itemView?.findViewById<TextView>(R.id.todo_category)
         val regdate = itemView?.findViewById<TextView>(R.id.todo_regdate)
-        val check = itemView?.findViewById<TextView>(R.id.todo_check)
+        val check = itemView?.findViewById<CheckBox>(R.id.checkBox)
 
         @SuppressLint("ResourceAsColor")
         fun bind(todolist: Todolist) {
+            itemView.setOnClickListener {
+                listener.onItemClick(todolist)
+            }
+
+            listId?.text = todolist.listId.toString()
             title?.text = todolist.title
             contents?.text = todolist.contents
             category?.text = todolist.category
             regdate?.text = dateFormat(todolist.regdate)
-            check?.text = todolist.todo_check.toString()
+            if(todolist.todo_check) {
+                check?.isChecked = true
+            } else {
+                check?.isChecked = false
+            }
+
 
             when(todolist.category){
                 "식사" -> category?.setBackgroundColor(ContextCompat.getColor(context, R.color.mealColor))
@@ -51,6 +68,7 @@ class HistoryAdapter(val context: Context, var todos: List<Todolist>) :
                 "기타" -> category?.setBackgroundColor(ContextCompat.getColor(context,R.color.etcColor))
             }
         }
+
     }
 
 
@@ -59,5 +77,8 @@ class HistoryAdapter(val context: Context, var todos: List<Todolist>) :
         notifyDataSetChanged()
     }
 
+    interface OnItemClickListener {
+        fun onItemClick(todolist: Todolist)
+    }
 
 }
