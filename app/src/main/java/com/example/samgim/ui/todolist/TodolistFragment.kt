@@ -49,22 +49,10 @@ class TodolistFragment : Fragment() {
         todoDB = TodolistDB.getInstance(requireActivity())
         tAdapter = TodoAdapter(requireActivity(), todoList)
 
-        val r = Runnable {
-            try {
-                todoList = todoDB?.getDAO()?.getAllByRegdate(today)!!
-                tAdapter = TodoAdapter(requireActivity(), todoList)
-                tAdapter.notifyDataSetChanged()
-
-                binding.recyclerView.adapter = tAdapter
-                binding.recyclerView.layoutManager = LinearLayoutManager(context)
-                binding.recyclerView.setHasFixedSize(true)
-            } catch (e: Exception) {
-                Log.d("tag", "Error - $e")
-            }
-        }
-
-        val thread = Thread(r)
-        thread.start()
+        Thread {
+            todoList = todoDB?.getDAO()?.getAllByRegdate(today)!!
+            setRecyclerView()
+        }.start()
 
         binding.mAddBtn.setOnClickListener {
             val intent = Intent(requireActivity(), MissionAddActivity::class.java)
@@ -72,6 +60,19 @@ class TodolistFragment : Fragment() {
         }
 
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    private fun setRecyclerView() {
+        activity?.runOnUiThread(
+            Runnable {
+                tAdapter = TodoAdapter(requireActivity(), todoList)
+                tAdapter.notifyDataSetChanged()
+
+                binding.recyclerView.adapter = tAdapter
+                binding.recyclerView.layoutManager = LinearLayoutManager(context)
+                binding.recyclerView.setHasFixedSize(true)
+            }
+        )
     }
 
     override fun onDestroyView() {

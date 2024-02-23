@@ -2,6 +2,7 @@ package com.example.samgim.ui.mission_list
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.samgim.R
+import com.example.samgim.Util.DateFomatter.Companion.dateFormat
 import com.example.samgim.ui.DB.Todolist
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -52,13 +54,6 @@ class TodoAdapter(val context: Context, val todos: List<Todolist>) :
                 "기타" -> category?.setBackgroundColor(ContextCompat.getColor(context,R.color.etcColor))
             }
         }
-    }
-
-    @SuppressLint("SimpleDateFormat")
-    fun dateFormat(regdate: Date): String{
-        val format = SimpleDateFormat("yyyy-MM-dd")
-        val strDate = regdate.let { format.format(it) }
-        return strDate
     }
 
 

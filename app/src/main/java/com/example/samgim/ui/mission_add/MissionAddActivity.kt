@@ -102,7 +102,7 @@ class MissionAddActivity : AppCompatActivity() {
                 val addThread = Thread(addRunnable)
                 addThread.start()
 
-                val i = Intent(this, MissionListActivity::class.java)
+                val i = Intent(this, MainActivity::class.java)
                 startActivity(i)
                 finish()
 
@@ -144,6 +144,7 @@ class MissionAddActivity : AppCompatActivity() {
         builder.setPositiveButton("예") { dialog, which ->
             // 여기에 등록 로직을 추가할 수 있습니다.
             Toast.makeText(this, "등록이 취소되었습니다.", Toast.LENGTH_SHORT).show()
+            finish()
 
         }
 
