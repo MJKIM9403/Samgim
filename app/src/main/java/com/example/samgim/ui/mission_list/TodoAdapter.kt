@@ -6,11 +6,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.samgim.R
 import com.example.samgim.Util.DateFomatter.Companion.dateFormat
+import com.example.samgim.data.Points
 import com.example.samgim.ui.DB.Todolist
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -33,18 +36,20 @@ class TodoAdapter(val context: Context, var todos: List<Todolist>) :
 
     inner class Holder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
         val title = itemView?.findViewById<TextView>(R.id.todo_title)
-        val contents = itemView?.findViewById<TextView>(R.id.todo_contents)
         val category = itemView?.findViewById<TextView>(R.id.todo_category)
         val regdate = itemView?.findViewById<TextView>(R.id.todo_regdate)
-        val check = itemView?.findViewById<TextView>(R.id.todo_check)
+        val check = itemView?.findViewById<CheckBox>(R.id.check1)
+        val todoPoint = itemView?.findViewById<TextView>(R.id.todo_point)
+
+        val checkBox: View = check as View
 
         @SuppressLint("ResourceAsColor")
         fun bind(todolist: Todolist) {
             title?.text = todolist.title
-            contents?.text = todolist.contents
             category?.text = todolist.category
             regdate?.text = dateFormat(todolist.regdate)
-            check?.text = todolist.todo_check.toString()
+            check?.isChecked = todolist.todo_check
+            todoPoint?.text = "[${Points(context).getPoint(todolist.category)}pt]"
 
             when(todolist.category){
                 "식사" -> category?.setBackgroundColor(ContextCompat.getColor(context, R.color.mealColor))
@@ -53,6 +58,17 @@ class TodoAdapter(val context: Context, var todos: List<Todolist>) :
                 "수면" -> category?.setBackgroundColor(ContextCompat.getColor(context,R.color.sleepColor))
                 "기타" -> category?.setBackgroundColor(ContextCompat.getColor(context,R.color.etcColor))
             }
+
+//            if(check!!.isChecked){
+//                checkBox.isEnabled = false
+//            }
+//
+//            check.setOnCheckedChangeListener { buttonView, isChecked ->
+//                if(isChecked) {
+//                    Toast.makeText(context, "체크하였습니다.", Toast.LENGTH_SHORT).show()
+//                    buttonView.isEnabled = false
+//                }
+//            }
         }
     }
 
