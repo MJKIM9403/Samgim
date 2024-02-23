@@ -1,5 +1,6 @@
 package com.example.samgim.ui.history
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.samgim.databinding.FragmentHistoryBinding
 import com.example.samgim.ui.DB.Todolist
 import com.example.samgim.ui.DB.TodolistDB
+import com.example.samgim.ui.detail.DetailActivity
 import com.example.samgim.ui.history.HistoryAdapter
 import java.text.SimpleDateFormat
 import java.util.*
@@ -34,7 +36,15 @@ class HistoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         todoDB = TodolistDB.getInstance(requireActivity())
-        hAdapter = HistoryAdapter(requireActivity(), historyList)
+        hAdapter = HistoryAdapter(requireActivity(), historyList, object : HistoryAdapter.OnItemClickListener {
+            override fun onItemClick(todolist: Todolist) {
+                val intent = Intent(activity, DetailActivity::class.java).apply {
+                    putExtra("todoId", todolist.listId)
+                    // 필요한 다른 데이터를 putExtra로 추가
+                }
+                startActivity(intent)
+            }
+        })
 
         fetchHistory()
 
@@ -50,7 +60,7 @@ class HistoryFragment : Fragment() {
 
         val r = Runnable {
             try {
-                historyList = todoDB?.getDAO()?.getAll()?.filter {
+                historyList = todoDB?.getDAO()?.getAllDESC()?.filter {
                     it.regdate.before(today)
                 } ?: listOf()
 

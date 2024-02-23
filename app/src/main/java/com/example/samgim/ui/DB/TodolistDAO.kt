@@ -21,6 +21,14 @@ interface TodolistDAO {
     @Query("SELECT * FROM todolist ORDER BY regdate DESC, listId ASC")
     fun getAll(): List<Todolist>
 
+    // 히스토리에서 시간순 역순으로 조회하기
+    @Query("SELECT * FROM todolist ORDER BY regdate ASC, listId DESC")
+    fun getAllDESC(): List<Todolist>
+
+    // 특정 아이디 투두 조회
+    @Query("SELECT * FROM todolist WHERE listId = :listId")
+    fun getTodoById(listId: Long): Todolist?
+
     // 날짜별 투두 조회(오늘의 미션 페이지 or 히스토리에서 특정 날짜 검색(추가 할거면))
     @Query("SELECT * FROM todolist WHERE regdate = :regdate ORDER BY listId ASC")
     fun getAllByRegdate(regdate: Date): List<Todolist>

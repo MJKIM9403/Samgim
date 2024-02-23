@@ -40,11 +40,13 @@ class TodoAdapter(val context: Context, var todos: List<Todolist>) :
         val regdate = itemView?.findViewById<TextView>(R.id.todo_regdate)
         val check = itemView?.findViewById<CheckBox>(R.id.check1)
         val todoPoint = itemView?.findViewById<TextView>(R.id.todo_point)
+        val todoId = itemView?.findViewById<TextView>(R.id.todo_id)
 
         val checkBox: View = check as View
 
         @SuppressLint("ResourceAsColor")
         fun bind(todolist: Todolist) {
+            todoId?.text = todolist.listId.toString()
             title?.text = todolist.title
             category?.text = todolist.category
             regdate?.text = dateFormat(todolist.regdate)
