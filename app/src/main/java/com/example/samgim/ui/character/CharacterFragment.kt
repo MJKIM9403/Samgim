@@ -28,7 +28,7 @@ class CharacterFragment : Fragment() {
     private lateinit var levelRequiredExp: List<Int>
     private var totalExp: Int = 0
     private var level: Int = 0
-    private var maxLevelCount: Int = 0
+    private var maxLevel: Int = 0
     private var nextLevelRequiredExp: Int = 0
     private var currentLevelRequiredExp: Int = 0
     private var currentExpToShow: Int = 0
@@ -59,12 +59,15 @@ class CharacterFragment : Fragment() {
         pref = requireActivity().getSharedPreferences("state", Activity.MODE_PRIVATE)
         prefEditor = pref.edit()
 
+//        prefEditor.clear()
+//        prefEditor.apply()
+
         levelRequiredExp = listOf(0, 10, 20, 40, 60, 80)
         totalExp = pref.getInt("totalExp", 0)
         level = checkLevel()
-        maxLevelCount = levelRequiredExp.size
+        maxLevel = levelRequiredExp.size
         nextLevelRequiredExp = when {
-            level < maxLevelCount -> levelRequiredExp[level]
+            level < maxLevel -> levelRequiredExp[level]
             else -> levelRequiredExp.last()
         }
         currentLevelRequiredExp = accumulateExp(level)
@@ -117,14 +120,14 @@ class CharacterFragment : Fragment() {
 
         val todayExpVal: Int = 10 // TODO: 오늘 작성한 리스트 중 완료된 값의 점수만 합산
         todayExp.text = "$todayExpVal 점"
-        if (totalExp < accumulateExp(maxLevelCount)) {
+        if (totalExp < accumulateExp(maxLevel)) {
             download.text = "레벨업까지 ${nextLevelRequiredExp - currentExpToShow}점!"
             progressBarExp.max = nextLevelRequiredExp
             progressBarExp.progress = currentExpToShow
         } else {
             download.text = "최대 레벨입니다."
-            progressBarExp.max = levelRequiredExp[maxLevelCount - 1]
-            progressBarExp.progress = levelRequiredExp[maxLevelCount - 1]
+            progressBarExp.max = levelRequiredExp[maxLevel - 1]
+            progressBarExp.progress = levelRequiredExp[maxLevel - 1]
         }
     }
 
@@ -155,6 +158,9 @@ class CharacterFragment : Fragment() {
 
         if (prevLevel < nowLevel) {
             prefEditor.putInt("level", nowLevel)
+            if(nowLevel < maxLevel){
+                prefEditor.putInt("nextLevelRequiredExp", accumulateExp(nowLevel + 1))
+            }
             prefEditor.apply()
         }
 
