@@ -13,7 +13,7 @@ import com.example.samgim.ui.DB.Todolist
 import java.text.SimpleDateFormat
 import java.util.Date
 
-class TodoAdapter(val context: Context, val todos: List<Todolist>) :
+class TodoAdapter(val context: Context, var todos: List<Todolist>) :
     RecyclerView.Adapter<TodoAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -59,6 +59,12 @@ class TodoAdapter(val context: Context, val todos: List<Todolist>) :
         val format = SimpleDateFormat("yyyy-MM-dd")
         val strDate = regdate.let { format.format(it) }
         return strDate
+    }
+
+
+    fun updateData(newTodoList: List<Todolist>) {
+        this.todos = newTodoList
+        notifyDataSetChanged()
     }
 
 

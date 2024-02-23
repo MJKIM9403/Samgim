@@ -1,38 +1,69 @@
 package com.example.samgim.ui.history
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.example.samgim.databinding.FragmentNotificationsBinding
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.samgim.databinding.FragmentHistoryBinding
+import com.example.samgim.ui.DB.Todolist
+import com.example.samgim.ui.DB.TodolistDB
+import com.example.samgim.ui.mission_list.TodoAdapter
+import java.text.SimpleDateFormat
+import java.util.*
 
 class HistoryFragment : Fragment() {
 
-    private var _binding: FragmentNotificationsBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    private var _binding: FragmentHistoryBinding? = null
     private val binding get() = _binding!!
+    private var todoDB: TodolistDB? = null
+    private var historyList = listOf<Todolist>()
+    private lateinit var hAdapter: TodoAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val notificationsViewModel =
-            ViewModelProvider(this).get(HistoryViewModel::class.java)
+        _binding = FragmentHistoryBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val textView: TextView = binding.textNotifications
-        notificationsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        todoDB = TodolistDB.getInstance(requireActivity())
+        hAdapter = TodoAdapter(requireActivity(), historyList)
+
+        fetchHistory()
+
+        binding.recyclerView.adapter = hAdapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
+        binding.recyclerView.setHasFixedSize(true)
+    }
+
+    private fun fetchHistory() {
+        val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val todayStr = format.format(Date())
+        val today: Date = format.parse(todayStr) ?: Date()
+
+        val r = Runnable {
+            try {
+                historyList = todoDB?.getDAO()?.getAll()?.filter {
+                    it.regdate.before(today)
+                } ?: listOf()
+
+                activity?.runOnUiThread {
+                    hAdapter.updateData(historyList)
+                    hAdapter.notifyDataSetChanged()
+                }
+            } catch (e: Exception) {
+                Log.d("HistoryFragment", "Error - $e")
+            }
         }
-        return root
+
+        Thread(r).start()
     }
 
     override fun onDestroyView() {
