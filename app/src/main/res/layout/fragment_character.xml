@@ -14,17 +14,33 @@
         android:layout_height="200dp"
         android:src="@drawable/rice"
         android:layout_gravity="center"/>
-    <TextView
-        android:id="@+id/textViewCharName"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:gravity="center"
-        android:text="김밥이"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textSize="20dp" />
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/character_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:enabled="false"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="20dp" />
+        <ImageButton
+            android:id="@+id/edit_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:padding="2dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_edit"
+            android:background="@color/purple_500"
+            android:text="edit"/>
+    </LinearLayout>
     <TextView
         android:id="@+id/textViewTodayExp"
         android:layout_width="match_parent"
