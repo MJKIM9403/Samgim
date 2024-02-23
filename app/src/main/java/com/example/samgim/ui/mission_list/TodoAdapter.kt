@@ -15,7 +15,7 @@ import com.example.samgim.ui.DB.Todolist
 import java.text.SimpleDateFormat
 import java.util.Date
 
-class TodoAdapter(val context: Context, val todos: List<Todolist>) :
+class TodoAdapter(val context: Context, var todos: List<Todolist>) :
     RecyclerView.Adapter<TodoAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -54,6 +54,12 @@ class TodoAdapter(val context: Context, val todos: List<Todolist>) :
                 "기타" -> category?.setBackgroundColor(ContextCompat.getColor(context,R.color.etcColor))
             }
         }
+    }
+
+
+    fun updateData(newTodoList: List<Todolist>) {
+        this.todos = newTodoList
+        notifyDataSetChanged()
     }
 
 

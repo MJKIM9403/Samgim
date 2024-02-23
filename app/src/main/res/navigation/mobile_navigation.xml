@@ -8,6 +8,7 @@
     <fragment
         android:id="@+id/navigation_character"
         android:name="com.example.samgim.ui.character.CharacterFragment"
+
         android:label="@string/title_character"
         tools:layout="@layout/fragment_home" />
 
