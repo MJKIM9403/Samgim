@@ -3,18 +3,18 @@
 
     <item
         android:id="@+id/navigation_character"
-        android:title="@string/title_character" />
+        android:title="@string/title_character"
+        android:icon="@drawable/egg"/>
 
     <item
         android:id="@+id/navigation_todolist"
-        android:title="투두리스트" />
+        android:title="투두리스트"
+        android:icon="@drawable/baseline_try_24"/>
 
     <item
         android:id="@+id/navigation_history"
-        android:title="@string/title_history" />
+        android:title="@string/title_history"
+        android:icon="@drawable/collections_bookmark"/>
 
-<!--    <item-->
-<!--        android:id="@+id/navigation_setting"-->
-<!--        android:title="설정" />-->
 
 </menu>
