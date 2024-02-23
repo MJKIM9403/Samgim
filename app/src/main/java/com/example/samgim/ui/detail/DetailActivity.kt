@@ -12,10 +12,8 @@ import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 
 class DetailActivity : AppCompatActivity() {
-
     private lateinit var binding: HistoryDetailBinding
     private var todoDB : TodolistDB? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

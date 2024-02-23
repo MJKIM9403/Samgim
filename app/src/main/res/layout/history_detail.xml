@@ -85,6 +85,4 @@
             android:text="확인"
             android:id="@+id/confirmBtn"/>
     </LinearLayout>
-
-
 </LinearLayout>

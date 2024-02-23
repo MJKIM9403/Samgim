@@ -18,6 +18,7 @@ import com.example.samgim.ui.detail.DetailActivity
 import org.w3c.dom.Text
 
 class HistoryAdapter(val context: Context, var todos: List<Todolist>, private val listener: OnItemClickListener) :
+
     RecyclerView.Adapter<HistoryAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {

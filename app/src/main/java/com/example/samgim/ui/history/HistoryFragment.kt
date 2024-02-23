@@ -17,7 +17,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class HistoryFragment : Fragment() {
-
     private var _binding: FragmentHistoryBinding? = null
     private val binding get() = _binding!!
     private var todoDB: TodolistDB? = null
