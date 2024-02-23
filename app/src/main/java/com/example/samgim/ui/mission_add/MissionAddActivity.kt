@@ -18,12 +18,6 @@ import com.example.samgim.R
 import com.example.samgim.databinding.MissionAddBinding
 import com.example.samgim.ui.DB.Todolist
 import com.example.samgim.ui.DB.TodolistDB
-import com.example.samgim.ui.DB.TodolistDB.Companion.destroyInstance
-import com.example.samgim.ui.mission_list.MissionListActivity
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.util.Date
-import java.util.Locale
 
 
 class MissionAddActivity : AppCompatActivity() {

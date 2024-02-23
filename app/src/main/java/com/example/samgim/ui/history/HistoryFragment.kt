@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.samgim.databinding.FragmentHistoryBinding
 import com.example.samgim.ui.DB.Todolist
 import com.example.samgim.ui.DB.TodolistDB
-import com.example.samgim.ui.mission_list.TodoAdapter
+import com.example.samgim.ui.history.HistoryAdapter
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -20,7 +20,7 @@ class HistoryFragment : Fragment() {
     private val binding get() = _binding!!
     private var todoDB: TodolistDB? = null
     private var historyList = listOf<Todolist>()
-    private lateinit var hAdapter: TodoAdapter
+    private lateinit var hAdapter: HistoryAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,13 +34,13 @@ class HistoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         todoDB = TodolistDB.getInstance(requireActivity())
-        hAdapter = TodoAdapter(requireActivity(), historyList)
+        hAdapter = HistoryAdapter(requireActivity(), historyList)
 
         fetchHistory()
 
-        binding.recyclerView.adapter = hAdapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-        binding.recyclerView.setHasFixedSize(true)
+        binding.recyclerView2.adapter = hAdapter
+        binding.recyclerView2.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView2.setHasFixedSize(true)
     }
 
     private fun fetchHistory() {
