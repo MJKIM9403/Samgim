@@ -1,6 +1,5 @@
-package com.example.samgim.ui.detail
+package com.example.samgim.ui.history
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

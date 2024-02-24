@@ -20,8 +20,9 @@ import com.example.samgim.Util.DateFomatter.Companion.dateFormat
 import com.example.samgim.data.Points
 import com.example.samgim.ui.DB.Todolist
 import com.example.samgim.ui.DB.TodolistDB
+import com.example.samgim.ui.mission_edit.EditAdapter
 
-class TodoAdapter(val context: Context, var todos: List<Todolist>) :
+class TodoAdapter(val context: Context, var todos: List<Todolist>, private val listener: EditAdapter.OnItemClickListener) :
     RecyclerView.Adapter<TodoAdapter.Holder>() {
         lateinit var pref: SharedPreferences
         lateinit var prefEditor: SharedPreferences.Editor
@@ -52,6 +53,10 @@ class TodoAdapter(val context: Context, var todos: List<Todolist>) :
 
         @SuppressLint("ResourceAsColor")
         fun bind(todolist: Todolist) {
+            itemView.setOnClickListener {
+                listener.onItemClick(todolist)
+            }
+
             val selectPoint = Points(context).getPoint(todolist.category)
 
             title?.text = todolist.title
@@ -113,6 +118,4 @@ class TodoAdapter(val context: Context, var todos: List<Todolist>) :
         this.todos = newTodoList
         notifyDataSetChanged()
     }
-
-
 }

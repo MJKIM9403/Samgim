@@ -18,6 +18,11 @@ import com.example.samgim.R
 import com.example.samgim.databinding.MissionAddBinding
 import com.example.samgim.ui.DB.Todolist
 import com.example.samgim.ui.DB.TodolistDB
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
 
 
 class MissionAddActivity : AppCompatActivity() {
@@ -42,9 +47,6 @@ class MissionAddActivity : AppCompatActivity() {
         val spinner = findViewById<Spinner>(R.id.spinner)
         spinner.adapter = adapter
 
-        // 초기 선택 항목 설정 (여기서는 hint를 선택하지 않도록 설정)
-        spinner.setSelection(0, false)
-
         // 일정 추가 버튼
         val addBtn = binding.addBtn
         // 일정 취소 버튼
@@ -67,8 +69,11 @@ class MissionAddActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 result.setText("") // 선택 안하면 카테고리 값은 안들어감
             }
-
         }
+
+
+
+
 
         todoDB = TodolistDB.getInstance(this)
 

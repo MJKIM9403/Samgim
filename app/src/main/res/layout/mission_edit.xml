@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingVertical="20dp"
+    android:paddingHorizontal="10dp">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="오늘의 미션 수정"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/todo_id"/>
+    <TextView
+        android:id="@+id/todo_regdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="미션 카테고리"
+        android:layout_marginTop="10dp"/>
+
+    <Spinner
+        android:id="@+id/spinner"
+        style="@style/Widget.AppCompat.Spinner.Underlined"
+        android:theme="@style/borderColor"
+        android:entries="@array/todo_array"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:spinnerMode="dialog"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="제목"
+        android:layout_marginTop="10dp"/>
+    <EditText
+        android:id="@+id/write_title"
+        android:theme="@style/borderColor"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:paddingLeft="13dp"
+        android:hint="제목을 입력하세요."/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="메모"
+        android:layout_marginTop="10dp"/>
+    <EditText
+        android:textSize="16dp"
+        android:id="@+id/write_memo"
+        android:theme="@style/borderColor"
+        android:layout_margin="10dp"
+        android:paddingLeft="13dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="메모를 입력하세요."
+        android:inputType="text|textMultiLine"
+        android:scrollbars="vertical"
+        android:lines="5"
+        android:gravity="top|left"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/select_category"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="취소"
+            android:id="@+id/cancelBtn"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="수정"
+            android:id="@+id/editBtn"/>
+    </LinearLayout>
+</LinearLayout>

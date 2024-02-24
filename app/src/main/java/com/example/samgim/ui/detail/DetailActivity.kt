@@ -2,6 +2,7 @@ package com.example.samgim.ui.detail
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.samgim.R
+import com.example.samgim.ui.history.DetailFragment
 
 class DetailActivity : AppCompatActivity() {
 
