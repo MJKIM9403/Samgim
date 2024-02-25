@@ -1,6 +1,7 @@
 package com.example.samgim.ui.character
 
 import android.app.Activity
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -15,6 +16,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import com.example.samgim.R
 import com.example.samgim.databinding.FragmentCharacterBinding
 
@@ -22,16 +27,9 @@ class CharacterFragment : Fragment() {
 
     private var _binding: FragmentCharacterBinding? = null
     private val binding get() = _binding!!
-
-    private lateinit var pref: SharedPreferences
-    private lateinit var prefEditor: SharedPreferences.Editor
-    private lateinit var levelRequiredExp: List<Int>
-    private var totalExp: Int = 0
-    private var level: Int = 0
-    private var maxLevel: Int = 0
-    private var nextLevelRequiredExp: Int = 0
-    private var currentLevelRequiredExp: Int = 0
-    private var currentExpToShow: Int = 0
+    private lateinit var viewModel: CharacterViewModel
+    private lateinit var viewModelFactory: CharacterViewModelFactory
+    private lateinit var context: FragmentActivity
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,58 +42,67 @@ class CharacterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        context = requireActivity()
 
-        initializeVariables()
-        setupCharacterImage()
-        updateUI()
+        viewModelFactory = CharacterViewModelFactory(context)
+        viewModel = ViewModelProvider(context, viewModelFactory).get(CharacterViewModel::class.java)
+
+        setExp()
+        setImg()
+        setName()
+
+        setLevelObserver()
+
+        editName()
+
+    }
+    private fun setLevelObserver() {
+        viewModel.level.observe(viewLifecycleOwner, Observer {
+            Log.d("test", "levelupevent, ${viewModel.level.value}")
+        })
     }
 
-    override fun onResume() {
-        super.onResume()
-        updateUI()
-    }
-
-    private fun initializeVariables() {
-        pref = requireActivity().getSharedPreferences("state", Activity.MODE_PRIVATE)
-        prefEditor = pref.edit()
-
-//        prefEditor.clear()
-//        prefEditor.apply()
-
-        levelRequiredExp = listOf(0, 10, 20, 40, 60, 80)
-        totalExp = pref.getInt("totalExp", 0)
-        level = checkLevel()
-        maxLevel = levelRequiredExp.size
-        nextLevelRequiredExp = when {
-            level < maxLevel -> levelRequiredExp[level]
-            else -> levelRequiredExp.last()
-        }
-        currentLevelRequiredExp = accumulateExp(level)
-        currentExpToShow = totalExp - currentLevelRequiredExp
-    }
-
-    private fun setupCharacterImage() {
-        val characterImg: ImageView = binding.characterImg
-        val characterImages = arrayOf(
-            R.drawable.rice01,
-            R.drawable.rice02,
-            R.drawable.rice03,
-            R.drawable.rice04,
-            R.drawable.rice05_1,
-            R.drawable.rice05_3
-        )
-        characterImg.setImageResource(characterImages[level-1])
-    }
-
-    private fun updateUI() {
+    private fun setName() {
         val name: EditText = binding.characterName
-        val editBtn: ImageButton = binding.editBtn
+        name.backgroundTintList = ContextCompat.getColorStateList(requireActivity(),android.R.color.transparent)
+        viewModel.characterName.observe(viewLifecycleOwner, Observer {
+            name.setText(it)
+        })
+    }
+    private fun setImg() {
+        val characterImg: ImageView = binding.characterImg
+        viewModel.characterImage.observe(viewLifecycleOwner, Observer {
+            characterImg.setImageResource(it)
+        })
+    }
+    private fun setExp() {
         val todayExp: TextView = binding.textViewTodayExpVal
         val progressBarExp: ProgressBar = binding.progressBarExp
         val download: TextView = binding.textViewDownload
 
-        name.setText(pref.getString("name","김밥이"))
-        name.backgroundTintList = ContextCompat.getColorStateList(requireActivity(),android.R.color.transparent)
+        viewModel.currentExpToShow.observe(viewLifecycleOwner, Observer {
+            if(viewModel.totalExp.value!! < viewModel.maxLevelAccumulatedExp()){
+                progressBarExp.progress = it
+                download.text = "레벨업까지 ${(viewModel.nextLevelRequiredExp.value)?.minus(it)}점!"
+                Log.d("test", "현재점수: $it")
+            }else {
+                progressBarExp.progress = viewModel.requiredExp(viewModel.getMaxLevel())
+                download.text = "최대 레벨입니다."
+            }
+        })
+        viewModel.nextLevelRequiredExp.observe(viewLifecycleOwner, Observer {
+            if(viewModel.totalExp.value!! < viewModel.maxLevelAccumulatedExp()){
+                progressBarExp.max = it
+                Log.d("test", "다음레벨까지 점수: $it")
+            }else {
+                progressBarExp.max = viewModel.requiredExp(viewModel.getMaxLevel())
+            }
+        })
+    }
+
+    private fun editName() {
+        val name: EditText = binding.characterName
+        val editBtn: ImageButton = binding.editBtn
 
         editBtn.setOnClickListener {
             if(name.isEnabled){
@@ -105,29 +112,16 @@ class CharacterFragment : Fragment() {
                 }else if(inputName.trim().isEmpty()){
                     Toast.makeText(requireActivity(),"이름은 비워둘 수 없습니다.",Toast.LENGTH_SHORT).show()
                 }else {
-                    prefEditor.putString("name", name.text.toString())
-                    prefEditor.apply()
+                    viewModel.updateCharacterName(name.text.toString())
                     Log.d("name",name.text.toString())
                     name.isEnabled = false
-                    Toast.makeText(requireActivity(),"이름이 변경되었습니다.",Toast.LENGTH_SHORT).show()
-                    updateUI()
+                    Toast.makeText(context,"이름이 변경되었습니다.",Toast.LENGTH_SHORT).show()
+                    name.backgroundTintList = ContextCompat.getColorStateList(requireActivity(),android.R.color.transparent)
                 }
             }else {
                 name.isEnabled = true
                 name.backgroundTintList = ContextCompat.getColorStateList(requireActivity(),android.R.color.darker_gray)
             }
-        }
-
-        val todayExpVal: Int = 10 // TODO: 오늘 작성한 리스트 중 완료된 값의 점수만 합산
-        todayExp.text = "$todayExpVal 점"
-        if (totalExp < accumulateExp(maxLevel)) {
-            download.text = "레벨업까지 ${nextLevelRequiredExp - currentExpToShow}점!"
-            progressBarExp.max = nextLevelRequiredExp
-            progressBarExp.progress = currentExpToShow
-        } else {
-            download.text = "최대 레벨입니다."
-            progressBarExp.max = levelRequiredExp[maxLevel - 1]
-            progressBarExp.progress = levelRequiredExp[maxLevel - 1]
         }
     }
 
@@ -136,34 +130,4 @@ class CharacterFragment : Fragment() {
         _binding = null
     }
 
-    private fun accumulateExp(level: Int): Int {
-        var accumulatedExp = 0
-        for (i in 1..level) {
-            accumulatedExp += levelRequiredExp[i - 1]
-        }
-        return accumulatedExp
-    }
-
-    private fun checkLevel(): Int {
-        val prevLevel = pref.getInt("level", 1)
-        val nowLevel: Int = when {
-            totalExp in accumulateExp(1) until accumulateExp(2) -> 1
-            totalExp in accumulateExp(2) until accumulateExp(3) -> 2
-            totalExp in accumulateExp(3) until accumulateExp(4) -> 3
-            totalExp in accumulateExp(4) until accumulateExp(5) -> 4
-            totalExp in accumulateExp(5) until accumulateExp(6) -> 5
-            totalExp >= accumulateExp(6) -> 6
-            else -> 0
-        }
-
-        if (prevLevel < nowLevel) {
-            prefEditor.putInt("level", nowLevel)
-            if(nowLevel < maxLevel){
-                prefEditor.putInt("nextLevelRequiredExp", accumulateExp(nowLevel + 1))
-            }
-            prefEditor.apply()
-        }
-
-        return pref.getInt("level", 1)
-    }
 }
