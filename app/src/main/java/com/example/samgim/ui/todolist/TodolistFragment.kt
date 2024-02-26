@@ -10,9 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.samgim.R
 import com.example.samgim.Util.DateFomatter
@@ -72,12 +75,17 @@ class TodolistFragment : Fragment() {
             }
         }, object : OnCheckBoxClick {
             override fun checkTodo(point: Int) {
-                Log.d("test","checkTodo")
+                Log.d("test","checkTodo: click $point")
+                val prevLevel: Int = viewModel.level.value!!
                 viewModel.updateState(point)
+                val nowLevel: Int = viewModel.level.value!!
+                if(nowLevel > prevLevel){
+                    levelUpEvent()
+                }
             }
         })
 
-        setLevelObserver()
+        //setLevelObserver()
 
         Thread {
             todoList = todoDB?.getDAO()?.getAllByRegdate(today)!!
@@ -99,7 +107,7 @@ class TodolistFragment : Fragment() {
                 tAdapter.notifyDataSetChanged()
 
                 binding.recyclerView.adapter = tAdapter
-                binding.recyclerView.layoutManager = LinearLayoutManager(context)
+                binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
                 binding.recyclerView.setHasFixedSize(true)
             }
         )
@@ -128,26 +136,18 @@ class TodolistFragment : Fragment() {
             }
         }.start()
     }
-
-    private fun setLevelObserver() {
-        viewModel.level.observe(viewLifecycleOwner, Observer {
-            Log.d("test", "levelupevent, ${viewModel.level.value}")
-            //levelUpEvent()
-        })
-    }
     fun levelUpEvent() {
         val name = viewModel.characterName.value
-        val image = ImageView(context)
+        val image = ImageView(requireActivity())
         image.setImageResource(R.drawable.damgomb)
 
-        val builder = AlertDialog.Builder(context)
+        val builder = AlertDialog.Builder(requireActivity())
         builder.setTitle("레벨 업!")
         builder.setView(image)
         builder.setMessage("오잉...? ${name}의 상태가...?!")
         builder.setNeutralButton("상태를 보러가기"){ dialog, which ->
-            val transaction: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
-            val characterFragment: CharacterFragment = CharacterFragment()
-            transaction.replace(R.id.container, characterFragment).commit()
+            val navController = findNavController()
+            navController.navigate(R.id.navigation_character)
         }
         builder.show()
     }

@@ -84,7 +84,7 @@ class CharacterFragment : Fragment() {
             if(viewModel.totalExp.value!! < viewModel.maxLevelAccumulatedExp()){
                 progressBarExp.progress = it
                 download.text = "레벨업까지 ${(viewModel.nextLevelRequiredExp.value)?.minus(it)}점!"
-                Log.d("test", "현재점수: $it")
+                Log.d("test", "현재 경험치: $it")
             }else {
                 progressBarExp.progress = viewModel.requiredExp(viewModel.getMaxLevel())
                 download.text = "최대 레벨입니다."
@@ -93,7 +93,7 @@ class CharacterFragment : Fragment() {
         viewModel.nextLevelRequiredExp.observe(viewLifecycleOwner, Observer {
             if(viewModel.totalExp.value!! < viewModel.maxLevelAccumulatedExp()){
                 progressBarExp.max = it
-                Log.d("test", "다음레벨까지 점수: $it")
+                Log.d("test", "다음레벨 요구 경험치: $it")
             }else {
                 progressBarExp.max = viewModel.requiredExp(viewModel.getMaxLevel())
             }

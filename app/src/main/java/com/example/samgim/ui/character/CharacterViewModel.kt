@@ -11,8 +11,8 @@ import com.example.samgim.R
 
 class CharacterViewModel(context: Context) : ViewModel() {
 
-    private val pref: SharedPreferences
-    private val prefEditor: SharedPreferences.Editor
+    private val pref: SharedPreferences = context.getSharedPreferences("state", Activity.MODE_PRIVATE)
+    private val prefEditor: SharedPreferences.Editor = pref.edit()
     private val levelRequiredExpList: List<Int> = listOf(0, 10, 20, 40, 60, 80)
     private val maxLevel: Int = levelRequiredExpList.size
     private val maxLevelAccumulatedExp: Int = accumulateExp(maxLevel)
@@ -42,8 +42,8 @@ class CharacterViewModel(context: Context) : ViewModel() {
     val characterName: LiveData<String> = _characterName
 
     init {
-        pref = context.getSharedPreferences("state", Activity.MODE_PRIVATE)
-        prefEditor = pref.edit()
+        prefEditor.clear()
+        prefEditor.apply()
 
         _totalExp.value = pref.getInt("totalExp", 0)
         _level.value = pref.getInt("level", 1)
