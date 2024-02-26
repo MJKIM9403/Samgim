@@ -3,8 +3,8 @@
 <!--spinner와 edittext 밑줄 색 다른게 신경쓰여서 만든 style입니다 나중에 삼김 프젝에 맞게 컬러 수정할거-->
     <style name="borderColor">
         <!-- Color when pressed -->
-        <item name="colorAccent">#ffa000</item>
+        <item name="colorAccent">@color/purple_500</item>
         <!-- Default color for the dropdown arrow and line -->
-        <item name="colorControlNormal">#ffc107</item>
+        <item name="colorControlNormal">@color/purple_700</item>
     </style>
 </resources>

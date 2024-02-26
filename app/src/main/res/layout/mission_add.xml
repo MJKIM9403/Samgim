@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingVertical="20dp"
-    android:paddingHorizontal="10dp">
+    android:paddingHorizontal="20dp">
 
 
         <TextView
@@ -29,7 +29,6 @@
             android:entries="@array/todo_array"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:spinnerMode="dialog"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +50,6 @@
         <EditText
             android:id="@+id/write_title"
             android:theme="@style/borderColor"
-            android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16dp"
@@ -66,7 +64,6 @@
             android:textSize="16dp"
             android:id="@+id/write_memo"
             android:theme="@style/borderColor"
-            android:layout_margin="10dp"
             android:paddingLeft="13dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -86,16 +83,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center">
-                <Button
+                <android.widget.Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="취소"
-                    android:id="@+id/cancelBtn"/>
-                <Button
+                    android:id="@+id/cancelBtn"
+                    android:textColor="@color/white"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:background="@drawable/button2"/>
+                <android.widget.Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="등록"
-                    android:id="@+id/addBtn"/>
+                    android:id="@+id/addBtn"
+                    android:textColor="@color/white"
+                    android:background="@drawable/button1"/>
         </LinearLayout>
 
 

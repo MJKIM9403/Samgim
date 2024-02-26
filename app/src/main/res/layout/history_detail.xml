@@ -21,7 +21,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/todo_id"/>
+        android:id="@+id/todo_id"
+        android:visibility="gone"/>
     <TextView
         android:id="@+id/todo_regdate"
         android:layout_width="match_parent"
@@ -56,6 +57,11 @@
         android:layout_height="wrap_content"
         android:textSize="16dp"
         android:paddingLeft="13dp"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/todo_check"
+        android:layout_gravity="center"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -70,19 +76,18 @@
         android:textSize="16dp"
         android:paddingLeft="13dp"/>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/todo_check"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center">
-        <Button
+        <android.widget.Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="확인"
-            android:id="@+id/confirmBtn"/>
+            android:id="@+id/confirmBtn"
+            android:background="@drawable/button1"
+            android:textColor="@color/white"/>
     </LinearLayout>
 </LinearLayout>

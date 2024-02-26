@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingVertical="20dp"
-        android:paddingHorizontal="10dp">
+        android:paddingHorizontal="20dp">
 
 
         <TextView
@@ -25,12 +25,14 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:id="@+id/todo_id"/>
+            android:id="@+id/todo_id"
+            android:visibility="gone"/>
         <TextView
             android:id="@+id/todo_regdate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:visibility="gone"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -47,7 +49,6 @@
                 android:entries="@array/todo_array"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:spinnerMode="dialog"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -71,7 +72,6 @@
         <EditText
             android:id="@+id/write_title"
             android:theme="@style/borderColor"
-            android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16dp"
@@ -87,7 +87,6 @@
             android:textSize="16dp"
             android:id="@+id/write_memo"
             android:theme="@style/borderColor"
-            android:layout_margin="10dp"
             android:paddingLeft="13dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -106,16 +105,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center">
-            <Button
+            <android.widget.Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="삭제"
-                android:id="@+id/deleteBtn"/>
-            <Button
+                android:id="@+id/deleteBtn"
+                android:background="@drawable/button2"
+                android:textColor="@color/white"
+                android:layout_margin="10dp"
+                />
+            <android.widget.Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="수정"
-                android:id="@+id/editBtn"/>
+                android:id="@+id/editBtn"
+                android:background="@drawable/button1"
+                android:textColor="@color/white"
+                android:layout_margin="10dp"/>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
