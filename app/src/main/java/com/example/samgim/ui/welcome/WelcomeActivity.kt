@@ -43,12 +43,3 @@ class WelcomeActivity : AppCompatActivity() {
     }
 
 
-
-//        // 시작하기 버튼 클릭 리스너 설정
-//        welcomeBtn.setOnClickListener {
-//            // 다음 화면으로 이동하는 Intent 생성
-//            val intent = Intent(this, NextActivity::class.java)
-//            startActivity(intent) // 다음 화면으로 이동
-//        }
-//    }
-//    }
