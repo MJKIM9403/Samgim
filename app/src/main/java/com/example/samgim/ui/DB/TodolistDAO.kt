@@ -33,6 +33,9 @@ interface TodolistDAO {
     @Query("SELECT * FROM todolist WHERE regdate = :regdate ORDER BY listId ASC")
     fun getAllByRegdate(regdate: Date): List<Todolist>
 
+    @Query("SELECT COUNT(*) FROM todolist WHERE regdate = :regdate ORDER BY listId ASC")
+    fun getCountByRegdate(regdate: Date): Int
+
     // 갱신
     @Update
     fun updateTodos(vararg todolist: Todolist)

@@ -2,8 +2,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory>
+        <SwitchPreference
+            app:title="중요도 설정 변경"
+            app:key="setting_enable"
+            app:defaultValue="false"
+            android:enabled="true"
+            app:isPreferenceVisible="false"
+            />
         <SeekBarPreference
-            app:defaultValue="1"
+            android:dependency="setting_enable"
+            app:defaultValue="1 "
             app:title="식사"
             app:key="mealPoint"
             app:showSeekBarValue="true"
@@ -11,6 +19,7 @@
             android:max="5"
             />
         <SeekBarPreference
+            android:dependency="setting_enable"
             app:defaultValue="1"
             app:title="공부"
             app:key="studyPoint"
@@ -19,6 +28,7 @@
             android:max="5"
             />
         <SeekBarPreference
+            android:dependency="setting_enable"
             app:defaultValue="1"
             app:title="운동"
             app:key="workoutPoint"
@@ -27,6 +37,7 @@
             android:max="5"
             />
         <SeekBarPreference
+            android:dependency="setting_enable"
             app:defaultValue="1"
             app:title="수면"
             app:key="sleepPoint"
@@ -35,6 +46,7 @@
             android:max="5"
             />
         <SeekBarPreference
+            android:dependency="setting_enable"
             app:defaultValue="1"
             app:title="기타"
             app:key="etcPoint"
