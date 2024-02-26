@@ -92,7 +92,8 @@
         android:inputType="text|textMultiLine"
         android:scrollbars="vertical"
         android:lines="5"
-        android:gravity="top|left"/>
+        android:gravity="top|left"
+        android:background="@drawable/box_border"/>
 
     <TextView
         android:layout_width="match_parent"
