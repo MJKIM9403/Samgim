@@ -43,17 +43,17 @@ class TutorialActivity : AppCompatActivity() {
         override fun getItem(position: Int): Fragment {
             return TutorialFragment.newInstance(
                 when (position) {
-                    0 -> R.drawable.img00
-                    1 -> R.drawable.img01
+                    0 -> R.drawable.tutorial01
+                    1 -> R.drawable.tutorial02
                     2 -> R.drawable.img02
-                    3 -> R.drawable.img03
+                    3 -> R.drawable.tutorial004
                     else -> R.drawable.img00
                 },
                 when (position) {
-                    0 -> "중요도를 체크해보아요!"
-                    1 -> "해야할일을 메모해요!"
-                    2 -> "해야할 일을 완료해보아요!"
-                    3 -> "김밥이 진화!"
+                    0 -> "자신만의 중요도를 설정!"
+                    1 -> "카테고리를 선택하고\n매일 매일 오늘의 해야할 일을 작성!"
+                    2 -> "해야할 일을 완료 후 체크!"
+                    3 -> "당신만의 쌀알이 진화!"
                     else -> "page00"
                 },
                 position
