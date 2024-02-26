@@ -31,8 +31,11 @@ class MissionEditActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = MissionEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // 액션 바 왼쪽에 뒤로가기 아이콘을 만들기
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        // TodoListDB 인스턴스를 초기화합니다.
+
+        // TodoListDB 인스턴스를 초기화
         todoDB = TodolistDB.getInstance(applicationContext)
 
         // todoId 가져오기
@@ -74,7 +77,7 @@ class MissionEditActivity : AppCompatActivity() {
                         binding.writeMemo.setText(it.contents)
                         // Date 타입의 regdate를 문자열로 포매팅
                         binding.todoRegdate.text =
-                            SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(it.regdate)
+                            SimpleDateFormat("yyyy-MM-dd").format(it.regdate)
                     }
                 }
             }

@@ -49,12 +49,12 @@ class DetailFragment : Fragment() {
                         binding.todoMemo.text = it.contents
                         // Date 타입의 regdate를 문자열로 포매팅
                         binding.todoRegdate.text =
-                            SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(it.regdate)
+                            SimpleDateFormat("yyyy-MM-dd").format(it.regdate)
                         // todo_check와 관련된 UI 업데이트 (예시)
                         if(todolist.todo_check) {
-                            binding.todoCheck.setImageResource(R.drawable.baseline_thumb_up_24)
+                            binding.todoCheck.setImageResource(R.drawable.sentiment_excited)
                         } else {
-                            binding.todoCheck.setImageResource(R.drawable.baseline_thumb_down_24)
+                            binding.todoCheck.setImageResource(R.drawable.sentiment_frustrated)
                         }
 
                     }

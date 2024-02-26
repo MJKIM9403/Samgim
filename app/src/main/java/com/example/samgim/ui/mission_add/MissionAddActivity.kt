@@ -77,51 +77,66 @@ class MissionAddActivity : AppCompatActivity() {
 
         todoDB = TodolistDB.getInstance(this)
 
-        // 새로운 투두 객체를 생성, id 이외의 값을 지정 후 DB에 추가
-        val addRunnable = Runnable {
-            val newTodo = Todolist(
-                title = binding.writeTitle.text.toString(), // 제목
-                contents = binding.writeMemo.text.toString(), // 내용
-                category = binding.selectCategory.text.toString(), // 카테고리
-            )
-            todoDB?.getDAO()?.insertTodo(newTodo)
-        }
 
-        // 등록 버튼 클릭 리스너 설정
-        addBtn.setOnClickListener {
-            // 다이얼로그 표시
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("등록 확인")
-            builder.setMessage("등록하시겠습니까?")
-
-            // "예" 버튼 클릭 시 이벤트 처리
-            builder.setPositiveButton("예") { dialog, which ->
-                // 여기에 등록 로직을 추가할 수 있습니다.
-
-                val addThread = Thread(addRunnable)
-                addThread.start()
-
-                val i = Intent(this, MainActivity::class.java)
-                startActivity(i)
-                finish()
-
-                Toast.makeText(this, "등록되었습니다.", Toast.LENGTH_SHORT).show()
-            }
-
-            // "아니오" 버튼 클릭 시 이벤트 처리
-            builder.setNegativeButton("아니오") { dialog, which ->
-                // 아무 동작 없음
-            }
-
-            // 다이얼로그 표시
-            builder.show()
-
-
-        }
 
         // 취소 버튼 클릭 리스너 설정
         cancelBtn.setOnClickListener {
             showCancelBtnDialog()
+        }
+
+        // 등록 버튼 클릭 리스너 설정
+        addBtn.setOnClickListener {
+            val title = binding.writeTitle.text.toString()
+            val contents = binding.writeMemo.text.toString()
+            val category = binding.selectCategory.text.toString()
+
+            if(title == "" || contents == "" || category == "") {
+                // 내용을 다 작성하지 않은 경우
+                Toast.makeText(this,"미션 내용을 작성하고 등록해주세요.", Toast.LENGTH_LONG).show()
+            }
+
+            // 내용이 비어있지 않은 경우에만
+            if(title != "" && contents != "" && category != "") {
+                // 새로운 투두 객체를 생성, id 이외의 값을 지정 후 DB에 추가
+                val addRunnable = Runnable {
+                    val newTodo = Todolist(
+                        title = binding.writeTitle.text.toString(), // 제목
+                        contents = binding.writeMemo.text.toString(), // 내용
+                        category = binding.selectCategory.text.toString(), // 카테고리
+                        )
+                    todoDB?.getDAO()?.insertTodo(newTodo)
+                }
+
+                // 다이얼로그 표시
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("등록 확인")
+                builder.setMessage("등록하시겠습니까?")
+
+                // "예" 버튼 클릭 시 이벤트 처리
+                builder.setPositiveButton("예") { dialog, which ->
+                    // 여기에 등록 로직을 추가할 수 있습니다.
+
+                    val addThread = Thread(addRunnable)
+                    addThread.start()
+
+                    val i = Intent(this, MainActivity::class.java)
+                    startActivity(i)
+                    finish()
+
+                    Toast.makeText(this, "등록되었습니다.", Toast.LENGTH_SHORT).show()
+                }
+
+                // "아니오" 버튼 클릭 시 이벤트 처리
+                builder.setNegativeButton("아니오") { dialog, which ->
+                    // 아무 동작 없음
+                }
+
+                // 다이얼로그 표시
+                builder.show()
+            }
+
+
+
         }
 
     }
