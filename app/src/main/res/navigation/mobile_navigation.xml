@@ -13,7 +13,11 @@
         tools:layout="@layout/fragment_character" >
         <action
             android:id="@+id/action_navigation_character_to_navigation_todolist"
-            app:destination="@id/navigation_todolist" />
+            app:destination="@id/navigation_todolist"
+            app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_navigation_character_to_navigation_history"
+            app:destination="@id/navigation_history" />
     </fragment>
 
     <fragment
@@ -24,6 +28,11 @@
         <action
             android:id="@+id/action_navigation_todolist_to_navigation_history"
             app:destination="@id/navigation_history" />
+        <action
+            android:id="@+id/action_navigation_todolist_to_navigation_character"
+            app:destination="@id/navigation_character"
+            app:popUpTo="@id/navigation_todolist"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -34,5 +43,8 @@
         <action
             android:id="@+id/action_navigation_history_to_navigation_character"
             app:destination="@id/navigation_character" />
+        <action
+            android:id="@+id/action_navigation_history_to_navigation_todolist"
+            app:destination="@id/navigation_todolist" />
     </fragment>
 </navigation>

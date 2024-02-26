@@ -1,15 +1,20 @@
 package com.example.samgim.ui.character
 
 import android.app.Activity
+import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.samgim.R
 
-class CharacterViewModel(context: Context) : ViewModel() {
+class CharacterViewModel(application: Application) : AndroidViewModel(application) {
+
+    val AndroidViewModel.context: Context
+        get() = getApplication<Application>().applicationContext
 
     private val pref: SharedPreferences = context.getSharedPreferences("state", Activity.MODE_PRIVATE)
     private val prefEditor: SharedPreferences.Editor = pref.edit()
@@ -42,8 +47,8 @@ class CharacterViewModel(context: Context) : ViewModel() {
     val characterName: LiveData<String> = _characterName
 
     init {
-        prefEditor.clear()
-        prefEditor.apply()
+//        prefEditor.clear()
+//        prefEditor.apply()
 
         _totalExp.value = pref.getInt("totalExp", 0)
         _level.value = pref.getInt("level", 1)

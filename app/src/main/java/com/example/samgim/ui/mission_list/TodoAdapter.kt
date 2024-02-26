@@ -27,7 +27,7 @@ import com.example.samgim.ui.todolist.OnCheckBoxClick
 class TodoAdapter(val context: Context,
                   var todos: List<Todolist>,
                   private val listener: EditAdapter.OnItemClickListener,
-                  private val checkListener: OnCheckBoxClick) :
+                  val onClickCheckBox: (point: Int) -> Unit) :
     RecyclerView.Adapter<TodoAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -40,7 +40,15 @@ class TodoAdapter(val context: Context,
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.bind(todos[position])
+        val todo: Todolist = todos[position]
+        holder.check?.setOnCheckedChangeListener(null)
+        holder.check?.isChecked = todo.todo_check
+
+        holder.check?.setOnCheckedChangeListener { buttonView, isChecked ->
+            todo.todo_check = isChecked
+        }
+
+        holder.bind(todo)
     }
 
     inner class Holder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
@@ -89,7 +97,7 @@ class TodoAdapter(val context: Context,
                     point = -1 * selectPoint
                 }
 
-                checkListener.checkTodo(point)
+                onClickCheckBox.invoke(point)
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.example.samgim.ui.todolist
 
 import android.app.AlertDialog
+import android.app.Application
 import android.content.Intent
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
@@ -15,6 +16,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.samgim.R
@@ -60,7 +62,7 @@ class TodolistFragment : Fragment() {
         val format = SimpleDateFormat("yyyy-MM-dd")
         val today: Date = format.parse(DateFomatter.dateFormat(Date()))
 
-        viewModelFactory = CharacterViewModelFactory(requireActivity())
+        viewModelFactory = CharacterViewModelFactory(requireActivity().application)
         viewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(CharacterViewModel::class.java)
 
         todoDB = TodolistDB.getInstance(requireActivity())
@@ -73,8 +75,7 @@ class TodolistFragment : Fragment() {
                 }
                 startActivity(intent)
             }
-        }, object : OnCheckBoxClick {
-            override fun checkTodo(point: Int) {
+        }, onClickCheckBox = { point ->
                 Log.d("test","checkTodo: click $point")
                 val prevLevel: Int = viewModel.level.value!!
                 viewModel.updateState(point)
@@ -83,9 +84,8 @@ class TodolistFragment : Fragment() {
                     levelUpEvent()
                 }
             }
-        })
+        )
 
-        //setLevelObserver()
 
         Thread {
             todoList = todoDB?.getDAO()?.getAllByRegdate(today)!!
@@ -146,10 +146,14 @@ class TodolistFragment : Fragment() {
         builder.setView(image)
         builder.setMessage("오잉...? ${name}의 상태가...?!")
         builder.setNeutralButton("상태를 보러가기"){ dialog, which ->
-            val navController = findNavController()
-            navController.navigate(R.id.navigation_character)
+            todoToChar()
         }
         builder.show()
+    }
+
+    fun todoToChar() {
+        val navController = view?.findNavController()
+        navController?.navigate(R.id.action_navigation_todolist_to_navigation_character)
     }
 
 

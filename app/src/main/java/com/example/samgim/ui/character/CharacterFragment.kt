@@ -1,6 +1,7 @@
 package com.example.samgim.ui.character
 
 import android.app.Activity
+import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -44,7 +45,7 @@ class CharacterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         context = requireActivity()
 
-        viewModelFactory = CharacterViewModelFactory(context)
+        viewModelFactory = CharacterViewModelFactory(context.application)
         viewModel = ViewModelProvider(context, viewModelFactory).get(CharacterViewModel::class.java)
 
         setExp()
