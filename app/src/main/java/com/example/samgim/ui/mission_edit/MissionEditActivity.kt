@@ -2,13 +2,20 @@ package com.example.samgim.ui.mission_edit
 
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isGone
 import com.example.samgim.R
 import com.example.samgim.databinding.MissionEditBinding
+import com.example.samgim.ui.DB.Todolist
 import com.example.samgim.ui.DB.TodolistDB
+import com.example.samgim.ui.mission_detail.MissionDetailActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,7 +31,7 @@ class MissionEditActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = MissionEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         // TodoListDB 인스턴스를 초기화합니다.
         todoDB = TodolistDB.getInstance(applicationContext)
 
@@ -38,8 +45,29 @@ class MissionEditActivity : AppCompatActivity() {
             CoroutineScope(Dispatchers.IO).launch {
                 val todolist = todoDB?.getDAO()?.getTodoById(todoId)
                 Log.d("test3", todolist.toString())
+
+
                 withContext(Dispatchers.Main) {
                     todolist?.let {
+                        // 이미 경험치를 올린 미션일 경우 Spinner를 비활성화하고 overlay를 활성화
+                        if (it.todo_check) {
+                            binding.spinner.isEnabled = false
+                            // 투명한 뷰를 활성화하고 클릭 리스너를 설정하여 토스트 메시지를 표시
+                            binding.spinnerOverlay.apply {
+                                isClickable = true
+                                isFocusable = true
+                                setOnClickListener {
+                                    Toast.makeText(this@MissionEditActivity, "이미 경험치를 올린 미션은 카테고리를 수정할 수 없습니다.", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        } else {
+                            // Spinner가 활성화되어 있을 때는 overlay를 비활성화
+                            binding.spinnerOverlay.isClickable = false
+                            binding.spinnerOverlay.isFocusable = false
+                        }
+
+
+                        // 화면에 저장된 데이터를 표시
                         binding.todoId.text = it.listId.toString()
                         binding.spinner.setSelection(findCategoryIndex(it.category))
                         binding.writeTitle.setText(it.title)
@@ -53,10 +81,7 @@ class MissionEditActivity : AppCompatActivity() {
         }
 
 
-        binding.cancelBtn.setOnClickListener {
-            this.finish()
-        }
-
+        // 등록 버튼 클릭 시
         binding.editBtn.setOnClickListener {
             showConfirmationDialog()
         }
@@ -73,8 +98,6 @@ class MissionEditActivity : AppCompatActivity() {
             .setPositiveButton("예") { dialog, which ->
                 // "예" 버튼을 눌렀을 때의 동작 구현
                 updateMission() // 미션 업데이트 함수 호출
-
-
             }
             .setNegativeButton("아니오", null)
             .create()
@@ -107,8 +130,13 @@ class MissionEditActivity : AppCompatActivity() {
                     withContext(Dispatchers.Main) {
                         Toast.makeText(this@MissionEditActivity, "수정 완료되었습니다.", Toast.LENGTH_SHORT).show()
                     }
+
                 }
             }
+            Intent(this, MissionDetailActivity::class.java).apply {
+                putExtra("todoId", todoId)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }.run { startActivities(arrayOf(this)) }
         }
 
     }
@@ -117,6 +145,53 @@ class MissionEditActivity : AppCompatActivity() {
         val categories = resources.getStringArray(R.array.todo_array)
         return categories.indexOf(category)
     }
+
+    // 뒤로가기 눌렀을 때 함수
+    override fun onBackPressed() {
+        super.onBackPressed()
+        showConfirmationDialog()
+        finish()
+    }
+
+    // 액션 바 뒤로가기 아이콘 클릭 시 함수
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId === android.R.id.home){
+            showConfirmationDialog()
+            finish()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    // 삭제 로직
+    fun showDeleteConfirmationDialog() {
+        val dialogBuilder = AlertDialog.Builder(this)
+            .setTitle("오늘의 미션을 정말로 삭제하시겠습니까?")
+            .setMessage("미션을 지우면 복구가 불가능합니다.")
+            .setPositiveButton("예") { dialog, which ->
+                // "예" 버튼을 눌렀을 때의 동작 구현
+                CoroutineScope(Dispatchers.IO).launch {
+                    // todoId를 사용하여 listId 초기화
+                    val listId = todoId
+                    // 데이터베이스에서 항목 삭제
+                    withContext(Dispatchers.IO) {
+                        todoDB?.getDAO()?.deleteTodos(listId)
+                    }
+                    // UI 갱신
+                    todoDB?.getDAO()?.getAll()
+                    // UI 스레드에서 토스트 메시지를 표시합니다.
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@MissionEditActivity, "삭제 완료되었습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                finish()
+            }
+            .setNegativeButton("아니오", null)
+            .create()
+
+        dialogBuilder.show()
+    }
+
+    // 키보드 외의 영역 누르면 키보드 내리기
 
 }
 

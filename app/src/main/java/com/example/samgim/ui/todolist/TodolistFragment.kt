@@ -8,16 +8,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
 import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.samgim.R
 import com.example.samgim.Util.DateFomatter
@@ -28,8 +23,8 @@ import com.example.samgim.ui.character.CharacterFragment
 import com.example.samgim.ui.character.CharacterViewModel
 import com.example.samgim.ui.character.CharacterViewModelFactory
 import com.example.samgim.ui.mission_add.MissionAddActivity
+import com.example.samgim.ui.mission_detail.MissionDetailActivity
 import com.example.samgim.ui.mission_edit.EditAdapter
-import com.example.samgim.ui.mission_edit.MissionEditActivity
 import com.example.samgim.ui.mission_list.TodoAdapter
 import java.util.Date
 
@@ -68,7 +63,7 @@ class TodolistFragment : Fragment() {
         todoDB = TodolistDB.getInstance(requireActivity())
         tAdapter = TodoAdapter(requireActivity(), todoList, object : EditAdapter.OnItemClickListener {
             override fun onItemClick(todolist: Todolist) {
-                val intent = Intent(activity, MissionEditActivity::class.java).apply {
+                val intent = Intent(activity, MissionDetailActivity::class.java).apply {
                     putExtra("todoId", todolist.listId)
                     // 필요한 다른 데이터를 putExtra로 추가
                     Log.d("test",todolist.listId.toString())
