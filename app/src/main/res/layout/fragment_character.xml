@@ -38,7 +38,7 @@
             android:padding="2dp"
             android:layout_gravity="center_vertical"
             android:src="@drawable/editpen"
-            android:background="@color/purple_500"
+            android:background="@color/green_500"
             android:text="edit"/>
     </LinearLayout>
     <TextView

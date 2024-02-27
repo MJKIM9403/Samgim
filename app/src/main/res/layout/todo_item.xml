@@ -34,7 +34,7 @@
                 app:civ_border_width="4dp"
                 app:civ_border_color="@color/white"
                 app:civ_border_overlay="false"
-                app:civ_circle_background_color="@color/purple_700" />
+                app:civ_circle_background_color="@color/green_700" />
             <TextView
                 android:textSize="10dp"
                 android:layout_gravity="center"
