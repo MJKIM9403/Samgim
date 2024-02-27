@@ -8,7 +8,6 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.samgim.R
 
 class CharacterViewModel(application: Application) : AndroidViewModel(application) {
@@ -37,6 +36,7 @@ class CharacterViewModel(application: Application) : AndroidViewModel(applicatio
     private val _currentExpToShow = MutableLiveData<Int>()
     private val _characterImage = MutableLiveData<Int>()
     private val _characterName = MutableLiveData<String>()
+    private val _todayExp = MutableLiveData<Int>()
 
     val totalExp: LiveData<Int>  = _totalExp
     val level: LiveData<Int> = _level
@@ -45,11 +45,9 @@ class CharacterViewModel(application: Application) : AndroidViewModel(applicatio
     val currentExpToShow: LiveData<Int> = _currentExpToShow
     val characterImage: LiveData<Int> = _characterImage
     val characterName: LiveData<String> = _characterName
+    val todayExp: LiveData<Int> = _todayExp
 
     init {
-//        prefEditor.clear()
-//        prefEditor.apply()
-
         _totalExp.value = pref.getInt("totalExp", 0)
         _level.value = pref.getInt("level", 1)
         _nextLevelRequiredExp.value = levelRequiredExpList[_level.value!!]
@@ -57,8 +55,12 @@ class CharacterViewModel(application: Application) : AndroidViewModel(applicatio
         _currentExpToShow.value = (totalExp.value)?.minus(_currentLevelAccumulatedExp.value!!)
         _characterImage.value = characterImages[_level.value!! - 1]
         _characterName.value = pref.getString("characterName", "김밥이")
+        _todayExp.value = pref.getInt("todayExp", 0)
     }
 
+    fun updateTodayExp(){
+        _todayExp.value = pref.getInt("todayExp",0)
+    }
     fun updateState(point: Int){
         _totalExp.value = _totalExp.value?.plus(point)
         prefEditor.putInt("totalExp", _totalExp.value!!)

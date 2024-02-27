@@ -81,6 +81,10 @@ class CharacterFragment : Fragment() {
         val progressBarExp: ProgressBar = binding.progressBarExp
         val download: TextView = binding.textViewDownload
 
+        viewModel.todayExp.observe(viewLifecycleOwner, Observer {
+            todayExp.text = it.toString()
+        })
+
         viewModel.currentExpToShow.observe(viewLifecycleOwner, Observer {
             if(viewModel.totalExp.value!! < viewModel.maxLevelAccumulatedExp()){
                 progressBarExp.progress = it

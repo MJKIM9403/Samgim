@@ -1,8 +1,9 @@
 package com.example.samgim.ui.todolist
 
+import android.app.Activity
 import android.app.AlertDialog
-import android.app.Application
 import android.content.Intent
+import android.content.SharedPreferences
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.util.Log
@@ -11,20 +12,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.samgim.R
 import com.example.samgim.Util.DateFomatter
+import com.example.samgim.data.Points
 import com.example.samgim.databinding.FragmentTodolistBinding
 import com.example.samgim.ui.DB.Todolist
 import com.example.samgim.ui.DB.TodolistDB
-import com.example.samgim.ui.character.CharacterFragment
 import com.example.samgim.ui.character.CharacterViewModel
 import com.example.samgim.ui.character.CharacterViewModelFactory
 import com.example.samgim.ui.mission_add.MissionAddActivity
@@ -47,6 +43,9 @@ class TodolistFragment : Fragment() {
     private lateinit var viewModel: CharacterViewModel
     private lateinit var viewModelFactory: CharacterViewModelFactory
 
+    private lateinit var pref: SharedPreferences
+    private lateinit var prefEditor: SharedPreferences.Editor
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -61,6 +60,9 @@ class TodolistFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val format = SimpleDateFormat("yyyy-MM-dd")
         val today: Date = format.parse(DateFomatter.dateFormat(Date()))
+
+        pref = requireActivity().getSharedPreferences("state", Activity.MODE_PRIVATE)
+        prefEditor = pref.edit()
 
         viewModelFactory = CharacterViewModelFactory(requireActivity().application)
         viewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(CharacterViewModel::class.java)
@@ -123,6 +125,14 @@ class TodolistFragment : Fragment() {
         refreshTodoList()
     }
 
+    override fun onStop() {
+        val todayExp = calcTodayExp()
+        prefEditor.putInt("todayExp", todayExp)
+        prefEditor.apply()
+        viewModel.updateTodayExp()
+        super.onStop()
+    }
+
     private fun refreshTodoList() {
         val format = SimpleDateFormat("yyyy-MM-dd")
         val today: Date = format.parse(DateFomatter.dateFormat(Date()))
@@ -154,6 +164,17 @@ class TodolistFragment : Fragment() {
     fun todoToChar() {
         val navController = view?.findNavController()
         navController?.navigate(R.id.action_navigation_todolist_to_navigation_character)
+    }
+
+    fun calcTodayExp(): Int {
+        var todayExp = 0
+        todoList.forEach { todo ->
+            if(todo.todo_check){
+                todayExp += Points(requireActivity()).getPoint(todo.category)
+            }
+        }
+        Log.d("test","today: $todayExp")
+        return todayExp
     }
 
 
