@@ -1,10 +1,13 @@
 package com.example.samgim.ui.mission_add
 
 import HintArrayAdapter
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -86,13 +89,13 @@ class MissionAddActivity : AppCompatActivity() {
             val contents = binding.writeMemo.text.toString()
             val category = binding.selectCategory.text.toString()
 
-            if(title == "" || contents == "" || category == "") {
+            if(title == "" || category == "") {
                 // 내용을 다 작성하지 않은 경우
                 Toast.makeText(this,"미션 내용을 작성하고 등록해주세요.", Toast.LENGTH_LONG).show()
             }
 
             // 내용이 비어있지 않은 경우에만
-            if(title != "" && contents != "" && category != "") {
+            if(title != "" && category != "") {
                 // 새로운 투두 객체를 생성, id 이외의 값을 지정 후 DB에 추가
                 val addRunnable = Runnable {
                     val newTodo = Todolist(
@@ -157,4 +160,12 @@ class MissionAddActivity : AppCompatActivity() {
         // 다이얼로그 표시
         builder.show()
     }
+
+    // EditText 영역 외에 클릭할 때 키보드 내리기
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+        return true
+    }
+
 }

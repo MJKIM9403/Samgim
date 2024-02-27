@@ -1,127 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingVertical="20dp"
         android:paddingHorizontal="20dp">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="오늘의 미션 수정"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:id="@+id/todo_id"
-            android:visibility="gone"/>
-        <TextView
-            android:id="@+id/todo_regdate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:visibility="gone"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="미션 카테고리"
-            android:layout_marginTop="10dp"/>
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <Spinner
-                android:id="@+id/spinner"
-                style="@style/Widget.AppCompat.Spinner.Underlined"
-                android:theme="@style/borderColor"
-                android:entries="@array/todo_array"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:spinnerMode="dialog"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
-            <View
-                android:id="@+id/spinner_overlay"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:clickable="false"
-                android:focusable="false" />
-        </FrameLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="제목"
-            android:layout_marginTop="10dp"/>
-        <EditText
-            android:id="@+id/write_title"
-            android:theme="@style/borderColor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16dp"
-            android:paddingLeft="13dp"
-            android:hint="제목을 입력하세요."
-            android:enabled="false"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="메모"
-            android:layout_marginTop="10dp"/>
-        <EditText
-            android:textSize="16dp"
-            android:id="@+id/write_memo"
-            android:theme="@style/borderColor"
-            android:paddingLeft="13dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="메모를 입력하세요."
-            android:inputType="text|textMultiLine"
-            android:scrollbars="vertical"
-            android:lines="5"
-            android:gravity="top|left"
-            android:enabled="false"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/select_category"/>
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        >
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-            <android.widget.Button
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="삭제"
-                android:id="@+id/deleteBtn"
-                android:background="@drawable/button2"
-                android:textColor="@color/white"
-                android:layout_margin="10dp"
-                />
-            <android.widget.Button
+                android:text="오늘의 미션 수정"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="수정"
-                android:id="@+id/editBtn"
-                android:background="@drawable/button1"
-                android:textColor="@color/white"
-                android:layout_margin="10dp"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/todo_id"
+                android:visibility="gone"/>
+            <TextView
+                android:id="@+id/todo_regdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="미션 카테고리"
+                android:layout_marginTop="10dp"/>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Spinner
+                    android:id="@+id/spinner"
+                    style="@style/Widget.AppCompat.Spinner.Underlined"
+                    android:theme="@style/borderColor"
+                    android:entries="@array/todo_array"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dialog"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+                <View
+                    android:id="@+id/spinner_overlay"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:clickable="false"
+                    android:focusable="false" />
+            </FrameLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="제목"
+                android:layout_marginTop="10dp"/>
+            <EditText
+                android:id="@+id/write_title"
+                android:theme="@style/borderColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:paddingLeft="13dp"
+                android:hint="제목을 입력하세요."
+                android:enabled="false"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="메모"
+                android:layout_marginTop="10dp"/>
+            <EditText
+                android:textSize="16dp"
+                android:id="@+id/write_memo"
+                android:theme="@style/borderColor"
+                android:paddingLeft="13dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="메모를 입력하세요."
+                android:inputType="text|textMultiLine"
+                android:scrollbars="vertical"
+                android:lines="5"
+                android:gravity="top|left"
+                android:enabled="false"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/select_category"/>
         </LinearLayout>
+
+    </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="100dp"
+        android:clipToPadding="false">
+        <android.widget.Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="삭제"
+            android:id="@+id/deleteBtn"
+            android:background="@drawable/button2"
+            android:textColor="@color/white"
+            android:layout_margin="10dp" />
+        <android.widget.Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="수정"
+            android:id="@+id/editBtn"
+            android:background="@drawable/button1"
+            android:textColor="@color/white"
+            android:layout_margin="10dp"/>
     </LinearLayout>
-</ScrollView>
+</LinearLayout>

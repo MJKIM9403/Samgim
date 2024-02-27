@@ -68,7 +68,7 @@
         <activity
             android:name=".ui.mission_add.MissionAddActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize"
+            android:windowSoftInputMode="adjustPan"
             android:label="오늘의 미션 등록">
 
             <!-- <intent-filter> -->
@@ -81,7 +81,7 @@
         <activity
             android:name=".ui.mission_edit.MissionEditActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize"
+            android:windowSoftInputMode="adjustPan"
             android:label="오늘의 미션 수정">
 
             <!-- <intent-filter> -->

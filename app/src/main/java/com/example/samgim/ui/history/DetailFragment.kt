@@ -1,5 +1,6 @@
 package com.example.samgim.ui.history
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -53,8 +54,10 @@ class DetailFragment : Fragment() {
                         // todo_check 값에 따라 이미지 변경
                         if(todolist.todo_check) {
                             binding.todoCheck.setImageResource(R.drawable.sentiment_excited)
+                            binding.todoCheck.setColorFilter(Color.parseColor("#5500a6ff"))
                         } else {
                             binding.todoCheck.setImageResource(R.drawable.sentiment_frustrated)
+                            binding.todoCheck.setColorFilter(Color.parseColor("#55ff0000"))
                         }
 
                     }
