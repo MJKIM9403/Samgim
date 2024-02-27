@@ -141,7 +141,7 @@ class CharacterFragment : Fragment() {
                 builder.setPositiveButton("예") { dialog, which ->
                     viewModel.reset()
                     Toast.makeText(requireActivity(), "초기화 되었습니다.", Toast.LENGTH_SHORT).show()
-                    refreshFragment(this)
+                    resetBtn.visibility = View.GONE
                 }
                 // "아니오" 버튼 클릭 시 이벤트 처리
                 builder.setNegativeButton("아니오") { dialog, which ->
@@ -150,11 +150,6 @@ class CharacterFragment : Fragment() {
                 builder.show()
             }
         }
-    }
-
-    private fun refreshFragment(fragment: Fragment) {
-        val ft: FragmentTransaction = context.supportFragmentManager.beginTransaction()
-        ft.detach(fragment).attach(fragment).commit()
     }
 
     override fun onDestroyView() {

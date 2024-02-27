@@ -48,6 +48,10 @@ class CharacterViewModel(application: Application) : AndroidViewModel(applicatio
     val todayExp: LiveData<Int> = _todayExp
 
     init {
+        setData()
+    }
+
+    fun setData() {
         _totalExp.value = pref.getInt("totalExp", 0)
         _level.value = pref.getInt("level", 1)
         _nextLevelRequiredExp.value = nextLevelRequiredExp(_level.value!!)
@@ -130,7 +134,10 @@ class CharacterViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     fun reset() {
+        val tempTodayExp = pref.getInt("todayExp", 0)
         prefEditor.clear()
+        prefEditor.putInt("todayExp", tempTodayExp)
         prefEditor.apply()
+        setData()
     }
 }
