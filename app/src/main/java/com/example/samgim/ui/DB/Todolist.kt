@@ -18,7 +18,7 @@ data class Todolist(
     var category: String,
 ) {
     @PrimaryKey(autoGenerate = true)
-    var listId: Long = 1
+    var listId: Long = 0
     @ColumnInfo(name = "todo_check")
     var todo_check: Boolean = false
     @ColumnInfo(name = "regdate")

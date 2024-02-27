@@ -22,7 +22,7 @@ interface TodolistDAO {
     fun getAll(): List<Todolist>
 
     // 히스토리에서 시간순 역순으로 조회하기
-    @Query("SELECT * FROM todolist ORDER BY regdate ASC, listId DESC")
+    @Query("SELECT * FROM todolist ORDER BY regdate ASC, listId ASC")
     fun getAllDESC(): List<Todolist>
 
     // 특정 아이디 투두 조회
