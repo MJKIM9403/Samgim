@@ -22,7 +22,7 @@ abstract class TodolistDB: RoomDatabase() {
                         context.applicationContext,
                         TodolistDB::class.java,
                         "todo_database"
-                    ).build()
+                    ).createFromAsset("database/todo_database.db").build()
                 }
             }
             return INSTANCE!!

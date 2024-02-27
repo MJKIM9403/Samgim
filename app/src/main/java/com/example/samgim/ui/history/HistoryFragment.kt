@@ -59,7 +59,7 @@ class HistoryFragment : Fragment() {
 
         val r = Runnable {
             try {
-                historyList = todoDB?.getDAO()?.getAllDESC()?.filter {
+                historyList = todoDB?.getDAO()?.getAll()?.filter {
                     it.regdate.before(today)
                 } ?: listOf()
 
