@@ -112,10 +112,10 @@ class CharacterFragment : Fragment() {
 
         editBtn.setOnClickListener {
             if(name.isEnabled){
-                val inputName = name.text.toString()
-                if(inputName.length > 10){
-                    Toast.makeText(requireActivity(),"이름을 10자 이내로 설정하여 주십시오.",Toast.LENGTH_SHORT).show()
-                }else if(inputName.trim().isEmpty()){
+                val inputName = name.text.toString().trim()
+                if(inputName.length > 8){
+                    Toast.makeText(requireActivity(),"이름을 8자 이내로 설정하여 주십시오.",Toast.LENGTH_SHORT).show()
+                }else if(inputName.isEmpty()){
                     Toast.makeText(requireActivity(),"이름은 비워둘 수 없습니다.",Toast.LENGTH_SHORT).show()
                 }else {
                     viewModel.updateCharacterName(name.text.toString())

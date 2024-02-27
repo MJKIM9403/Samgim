@@ -150,18 +150,32 @@ class TodolistFragment : Fragment() {
     }
     fun levelUpEvent() {
         val name = viewModel.characterName.value
-        val image = ImageView(requireActivity())
-        image.setImageResource(R.drawable.damgomb)
+        val level = viewModel.level.value
 
         val dialog = Dialog(requireActivity())
         dialog.setContentView(R.layout.level_up_dialog)
         val text = dialog.findViewById<TextView>(R.id.evolution_msg)
         val showCharBtn = dialog.findViewById<Button>(R.id.show_char_btn)
+
         text.text = "...... 오잉?!\n${name}의 상태가......!"
+
+        val dialog2 = Dialog(requireActivity())
+        dialog2.setContentView(R.layout.level_up_dialog2)
+        val charImg = dialog2.findViewById<ImageView>(R.id.level_up_char_img)
+        val text2 = dialog2.findViewById<TextView>(R.id.congratulations_msg)
+
+        viewModel.characterImage.value?.let { charImg.setImageResource(it) }
+        text2.text = "축하합니다! ${name}는(은)\n${level}단계로 진화했다."
+
         showCharBtn.setOnClickListener {
             todoToChar()
             dialog.dismiss()
         }
+
+        dialog.setOnDismissListener {
+            dialog2.show()
+        }
+
         dialog.show()
     }
 

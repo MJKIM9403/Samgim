@@ -3,35 +3,27 @@
     android:orientation="vertical"
     android:layout_width="350dp"
     android:layout_height="wrap_content"
-    android:paddingTop="70dp"
-    android:paddingBottom="50dp"
+    android:paddingVertical="70dp"
     android:paddingHorizontal="30dp">
 
     <ImageView
-        android:id="@+id/silhouette_img"
+        android:id="@+id/level_up_char_img"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/tutorial004"/>
     <TextView
-        android:id="@+id/evolution_msg"
+        android:id="@+id/congratulations_msg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="...... 오잉?!\n김밥이의 상태가......!"
+        android:text="축하합니다! 김밥이는(은)\nn단계로 진화했다."
         android:textSize="17dp"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:padding="17dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/evolution"/>
-    <Button
-        android:id="@+id/show_char_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="보러가기"
-        android:textStyle="bold"
-        android:layout_marginTop="5dp"
-        android:layout_gravity="center_horizontal" />
+
 
 
 </LinearLayout>
