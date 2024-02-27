@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -55,7 +56,7 @@ class CharacterFragment : Fragment() {
         setLevelObserver()
 
         editName()
-
+        binding.editBtn.setColorFilter(Color.parseColor("#FFFFFF"))
     }
     private fun setLevelObserver() {
         viewModel.level.observe(viewLifecycleOwner, Observer {
