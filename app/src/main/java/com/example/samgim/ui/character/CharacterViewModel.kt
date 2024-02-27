@@ -17,7 +17,7 @@ class CharacterViewModel(application: Application) : AndroidViewModel(applicatio
 
     private val pref: SharedPreferences = context.getSharedPreferences("state", Activity.MODE_PRIVATE)
     private val prefEditor: SharedPreferences.Editor = pref.edit()
-    private val levelRequiredExpList: List<Int> = listOf(0, 10, 20, 40, 60, 80)
+    private val levelRequiredExpList: List<Int> = listOf(0, 5, 5, 5, 5, 5) /*listOf(0, 10, 20, 40, 60, 80)*/
     private val maxLevel: Int = levelRequiredExpList.size
     private val maxLevelAccumulatedExp: Int = accumulateExp(maxLevel)
     private val characterImages = arrayOf(
@@ -50,7 +50,7 @@ class CharacterViewModel(application: Application) : AndroidViewModel(applicatio
     init {
         _totalExp.value = pref.getInt("totalExp", 0)
         _level.value = pref.getInt("level", 1)
-        _nextLevelRequiredExp.value = levelRequiredExpList[_level.value!!]
+        _nextLevelRequiredExp.value = nextLevelRequiredExp(_level.value!!)
         _currentLevelAccumulatedExp.value = accumulateExp(_level.value!!)
         _currentExpToShow.value = (totalExp.value)?.minus(_currentLevelAccumulatedExp.value!!)
         _characterImage.value = characterImages[_level.value!! - 1]
@@ -58,6 +58,12 @@ class CharacterViewModel(application: Application) : AndroidViewModel(applicatio
         _todayExp.value = pref.getInt("todayExp", 0)
     }
 
+    fun nextLevelRequiredExp(level: Int): Int {
+        return when(level){
+            maxLevel -> 999999
+            else -> levelRequiredExpList[level]
+        }
+    }
     fun updateTodayExp(){
         _todayExp.value = pref.getInt("todayExp",0)
     }
@@ -67,7 +73,7 @@ class CharacterViewModel(application: Application) : AndroidViewModel(applicatio
         prefEditor.apply()
         if(checkLevelUp()){
             _level.value = _level.value?.plus(1)
-            _nextLevelRequiredExp.value = levelRequiredExpList[level.value!!]
+            _nextLevelRequiredExp.value = nextLevelRequiredExp(_level.value!!)
             _currentLevelAccumulatedExp.value = accumulateExp(level.value!!)
             _characterImage.value = characterImages[level.value!! - 1]
         }
