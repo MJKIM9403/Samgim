@@ -56,13 +56,13 @@ class EditAdapter(val context: Context, var todos: List<Todolist>, private val l
             }
 
 
-            when(todolist.category){
-                "식사" -> category?.setBackgroundColor(ContextCompat.getColor(context, R.color.mealColor))
-                "공부" -> category?.setBackgroundColor(ContextCompat.getColor(context,R.color.studyColor))
-                "운동" -> category?.setBackgroundColor(ContextCompat.getColor(context,R.color.workoutColor))
-                "수면" -> category?.setBackgroundColor(ContextCompat.getColor(context,R.color.sleepColor))
-                "기타" -> category?.setBackgroundColor(ContextCompat.getColor(context,R.color.etcColor))
-            }
+//            when(todolist.category){
+//                "식사" -> category?.setBackgroundColor(ContextCompat.getColor(context, R.color.mealColor))
+//                "공부" -> category?.setBackgroundColor(ContextCompat.getColor(context,R.color.studyColor))
+//                "운동" -> category?.setBackgroundColor(ContextCompat.getColor(context,R.color.workoutColor))
+//                "수면" -> category?.setBackgroundColor(ContextCompat.getColor(context,R.color.sleepColor))
+//                "기타" -> category?.setBackgroundColor(ContextCompat.getColor(context,R.color.etcColor))
+//            }
         }
 
     }

@@ -72,11 +72,7 @@ class MissionAddActivity : AppCompatActivity() {
         }
 
 
-
-
-
         todoDB = TodolistDB.getInstance(this)
-
 
 
         // 취소 버튼 클릭 리스너 설정
@@ -114,8 +110,6 @@ class MissionAddActivity : AppCompatActivity() {
 
                 // "예" 버튼 클릭 시 이벤트 처리
                 builder.setPositiveButton("예") { dialog, which ->
-                    // 여기에 등록 로직을 추가할 수 있습니다.
-
                     val addThread = Thread(addRunnable)
                     addThread.start()
 
@@ -134,18 +128,13 @@ class MissionAddActivity : AppCompatActivity() {
                 // 다이얼로그 표시
                 builder.show()
             }
-
-
-
         }
-
     }
 
     override fun onDestroy() {
         TodolistDB.destroyInstance()
         super.onDestroy()
     }
-
 
 
     // 등록 다이얼로그 표시 함수
@@ -156,10 +145,8 @@ class MissionAddActivity : AppCompatActivity() {
 
         // "예" 버튼 클릭 시 이벤트 처리
         builder.setPositiveButton("예") { dialog, which ->
-            // 여기에 등록 로직을 추가할 수 있습니다.
             Toast.makeText(this, "등록이 취소되었습니다.", Toast.LENGTH_SHORT).show()
             finish()
-
         }
 
         // "아니오" 버튼 클릭 시 이벤트 처리
@@ -170,6 +157,4 @@ class MissionAddActivity : AppCompatActivity() {
         // 다이얼로그 표시
         builder.show()
     }
-
-
 }

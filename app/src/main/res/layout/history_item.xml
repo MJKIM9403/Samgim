@@ -67,5 +67,4 @@
             app:layout_constraintStart_toStartOf="@id/todo_category"
             app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </LinearLayout>

@@ -31,8 +31,10 @@ class MissionDetailActivity : AppCompatActivity() {
         binding = MissionDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         // TodoListDB 인스턴스를 초기화합니다.
         todoDB = TodolistDB.getInstance(applicationContext)
+
         // todoId 가져오기
         todoId = intent.getLongExtra("todoId", -1L) // 해당하는 값이 없으면 -1
         Log.d("test",todoId.toString())
@@ -82,10 +84,7 @@ class MissionDetailActivity : AppCompatActivity() {
             }
             startActivity(intent)
         }
-
     }
-
-
 
 
     // 카테고리 찾는 함수
@@ -96,7 +95,6 @@ class MissionDetailActivity : AppCompatActivity() {
 
     // 뒤로가기 눌렀을 때 함수
     override fun onBackPressed() {
-        // TodolistFragment로 이동
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         return super.onBackPressed()
@@ -108,7 +106,6 @@ class MissionDetailActivity : AppCompatActivity() {
             android.R.id.home -> {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
-
             }
         }
         return super.onOptionsItemSelected(item)
@@ -129,9 +126,9 @@ class MissionDetailActivity : AppCompatActivity() {
                     withContext(Dispatchers.IO) {
                         todoDB?.getDAO()?.deleteTodos(listId)
                     }
-                    // UI 갱신
+                    // DB 갱신
                     todoDB?.getDAO()?.getAll()
-                    // UI 스레드에서 토스트 메시지를 표시합니다.
+                    // 토스트 메시지를 표시
                     withContext(Dispatchers.Main) {
                         Toast.makeText(this@MissionDetailActivity, "삭제 완료되었습니다.", Toast.LENGTH_SHORT).show()
                     }

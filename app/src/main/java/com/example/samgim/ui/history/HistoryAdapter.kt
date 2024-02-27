@@ -17,7 +17,9 @@ import com.example.samgim.ui.DB.Todolist
 import com.example.samgim.ui.detail.DetailActivity
 import org.w3c.dom.Text
 
-class HistoryAdapter(val context: Context, var todos: List<Todolist>, private val listener: OnItemClickListener) :
+class HistoryAdapter(val context: Context,
+                     var todos: List<Todolist>,
+                     private val listener: OnItemClickListener) :
 
     RecyclerView.Adapter<HistoryAdapter.Holder>() {
 
@@ -53,11 +55,7 @@ class HistoryAdapter(val context: Context, var todos: List<Todolist>, private va
             contents?.text = todolist.contents
             category?.text = todolist.category
             regdate?.text = dateFormat(todolist.regdate)
-            if(todolist.todo_check) {
-                check?.isChecked = true
-            } else {
-                check?.isChecked = false
-            }
+            check?.isChecked = todolist.todo_check
 
 
             when(todolist.category){
@@ -68,7 +66,6 @@ class HistoryAdapter(val context: Context, var todos: List<Todolist>, private va
                 "기타" -> category?.setBackgroundColor(ContextCompat.getColor(context,R.color.etcColor))
             }
         }
-
     }
 
 
@@ -80,5 +77,4 @@ class HistoryAdapter(val context: Context, var todos: List<Todolist>, private va
     interface OnItemClickListener {
         fun onItemClick(todolist: Todolist)
     }
-
 }
