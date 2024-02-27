@@ -39,7 +39,7 @@ class HistoryFragment : Fragment() {
             override fun onItemClick(todolist: Todolist) {
                 val intent = Intent(activity, DetailActivity::class.java).apply {
                     putExtra("todoId", todolist.listId)
-                    // 필요한 다른 데이터를 putExtra로 추가
+                    // todoId를 DetailActivity로 넘김
                 }
                 startActivity(intent)
             }
