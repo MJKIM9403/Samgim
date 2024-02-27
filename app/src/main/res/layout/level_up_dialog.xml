@@ -24,14 +24,16 @@
         android:padding="17dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/evolution"/>
-    <Button
+    <android.widget.Button
         android:id="@+id/show_char_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="보러가기"
         android:textStyle="bold"
         android:layout_marginTop="5dp"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button1"
+        android:textColor="@color/white"/>
 
 
 </LinearLayout>
