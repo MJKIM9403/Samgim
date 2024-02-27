@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +24,7 @@ import com.example.samgim.ui.DB.Todolist
 import com.example.samgim.ui.DB.TodolistDB
 import com.example.samgim.ui.mission_edit.EditAdapter
 import com.example.samgim.ui.todolist.OnCheckBoxClick
+import de.hdodenhof.circleimageview.CircleImageView
 
 class TodoAdapter(val context: Context,
                   var todos: List<Todolist>,
@@ -58,6 +60,8 @@ class TodoAdapter(val context: Context,
         val regdate = itemView?.findViewById<TextView>(R.id.todo_regdate)
         val check = itemView?.findViewById<CheckBox>(R.id.check1)
         val todoPoint = itemView?.findViewById<TextView>(R.id.todo_point)
+        val categoryImg = itemView?.findViewById<CircleImageView>(R.id.todo_category_img)
+
 
         @SuppressLint("ResourceAsColor")
         fun bind(todolist: Todolist) {
@@ -73,12 +77,48 @@ class TodoAdapter(val context: Context,
             check?.isChecked = todolist.todo_check
             todoPoint?.text = "[${selectPoint}pt]"
 
+            categoryImg?.setColorFilter(Color.parseColor("#FFFFFFFF"))
+
             when(todolist.category){
-                "식사" -> category?.setBackgroundColor(ContextCompat.getColor(context, R.color.mealColor))
-                "공부" -> category?.setBackgroundColor(ContextCompat.getColor(context,R.color.studyColor))
-                "운동" -> category?.setBackgroundColor(ContextCompat.getColor(context,R.color.workoutColor))
-                "수면" -> category?.setBackgroundColor(ContextCompat.getColor(context,R.color.sleepColor))
-                "기타" -> category?.setBackgroundColor(ContextCompat.getColor(context,R.color.etcColor))
+                "식사" -> {
+                    categoryImg?.apply {
+                        setCircleBackgroundColorResource(R.color.mealColor)
+                        setImageResource(R.drawable.mealicon)
+                        borderColor = Color.parseColor("#FB4D3D")
+                    }
+                }
+                "공부" -> {
+                    categoryImg?.apply{
+                        setCircleBackgroundColorResource(R.color.studyColor)
+                        setImageResource(R.drawable.editpen)
+                        borderColor = Color.parseColor("#CA1551")
+                    }
+
+
+                }
+                "운동" -> {
+                    categoryImg?.apply {
+                        setCircleBackgroundColorResource(R.color.workoutColor)
+                        setImageResource(R.drawable.exerciseicon)
+                        borderColor = Color.parseColor("#345995")
+                    }
+                }
+                "수면" -> {
+                    categoryImg?.apply {
+                        setCircleBackgroundColorResource(R.color.sleepColor)
+                        setImageResource(R.drawable.bedtimeicon)
+                        borderColor = Color.parseColor("#EAC435")
+                    }
+
+
+                }
+                "기타" -> {
+                    categoryImg?.apply {
+                        setCircleBackgroundColorResource(R.color.etcColor)
+                        setImageResource(R.drawable.etcicon)
+                        borderColor = Color.parseColor("#03CEA4")
+                    }
+                }
             }
 
             check!!.setOnCheckedChangeListener { buttonView, isChecked ->
