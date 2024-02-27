@@ -7,7 +7,9 @@ import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
@@ -19,14 +21,14 @@ import com.example.samgim.databinding.SettingsActivityBinding
 
 class SettingsActivity : AppCompatActivity() {
     var todolistSize: Int = 0
+    var isFirst: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = SettingsActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
         if (savedInstanceState == null) {
-            val intent: Intent = intent
+            isFirst = intent.getBooleanExtra("isFirst",false)
             todolistSize = intent.getIntExtra("todolistSize", 0)
-
             val transaction = supportFragmentManager.beginTransaction()
             val bundle = Bundle()
             bundle.putInt("todolistSize", todolistSize)
@@ -38,8 +40,12 @@ class SettingsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.saveBtn.setOnClickListener {
-            saveSettings()
+            if(saveSettings()){
+                finish()
+            }
         }
+
+        this.onBackPressedDispatcher.addCallback(this, callback)
     }
 
     override fun onResume() {
@@ -55,19 +61,17 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        saveSettings()
-    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId === android.R.id.home){
-            saveSettings()
+            if(saveSettings()){
+                finish()
+            }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun saveSettings() {
+    private fun saveSettings(): Boolean{
         val points = Points(this)
         val mealPoint = points.mealPoint
         val studyPoint = points.studyPoint
@@ -78,11 +82,23 @@ class SettingsActivity : AppCompatActivity() {
 
         if(total != 10){
             Toast.makeText(this, "점수의 총합을 10점으로 맞춰주세요.", Toast.LENGTH_SHORT).show()
+            return false
         }else {
             Toast.makeText(this, "저장되었습니다.", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+            Log.d("test",isFirst.toString())
+            if(isFirst){
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
+            return true
+        }
+    }
+
+    private val callback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            if(saveSettings()){
+                finish()
+            }
         }
     }
 }

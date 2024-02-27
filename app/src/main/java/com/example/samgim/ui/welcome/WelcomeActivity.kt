@@ -5,9 +5,11 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.PreferenceManager
 import com.example.samgim.MainActivity
 import com.example.samgim.R
 
@@ -20,19 +22,13 @@ class WelcomeActivity : AppCompatActivity() {
             val welcomeBtn = findViewById<Button>(R.id.welcomeBtn)
 
             welcomeBtn.setOnClickListener {
-                val pref = this.getSharedPreferences("isFirst", Activity.MODE_PRIVATE)
-                val prefEditor: SharedPreferences.Editor = pref.edit()
-
-//                /*테스트용. 이전 접속 기록 삭제*/
-//                prefEditor.remove("isFirst")
-//                prefEditor.apply()
+                val pref = this.getSharedPreferences("access", Activity.MODE_PRIVATE)
 
                 val isFirst = pref.getBoolean("isFirst", true)
                 if(isFirst){
-                    prefEditor.putBoolean("isFirst", false)
-                    prefEditor.apply()
                     val intent = Intent(this, TutorialActivity::class.java)
                     startActivity(intent)
+                    finish()
                 }else{
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)

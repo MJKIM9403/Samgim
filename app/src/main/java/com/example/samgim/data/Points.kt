@@ -22,4 +22,12 @@ data class Points(val context: Context){
             else -> 0
         }
     }
+
+    fun isCompleted(): Boolean {
+        val totalPoint = mealPoint + studyPoint + workoutPoint + sleepPoint + etcPoint
+        return when (totalPoint) {
+            10 -> true
+            else -> false
+        }
+    }
 }

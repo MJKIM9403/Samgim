@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -15,12 +18,15 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.room.Room
 import com.example.samgim.Util.DateFomatter
+import com.example.samgim.data.Points
 import com.example.samgim.databinding.ActivityMainBinding
 import com.example.samgim.ui.DB.Todolist
 import com.example.samgim.ui.DB.TodolistDB
 import com.example.samgim.ui.importance.SettingsActivity
+import com.example.samgim.ui.welcome.TutorialActivity
 import java.text.SimpleDateFormat
 import java.util.Date
+import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,6 +40,10 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if(!Points(this).isCompleted()){
+            goSetting()
+        }
 
         val navView: BottomNavigationView = binding.navView
 
@@ -49,6 +59,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         NavigationUI.setupWithNavController(navView, navController)
 
+        this.onBackPressedDispatcher.addCallback(this, callback)
     }
 
     override fun onResume() {
@@ -72,10 +83,33 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId===R.id.menu_main_setting){
-            val intent = Intent(this, SettingsActivity::class.java)
-            intent.putExtra("todolistSize", todolistSize)
-            startActivity(intent)
+            goSetting()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun goSetting() {
+        val intent = Intent(this, SettingsActivity::class.java)
+        intent.putExtra("todolistSize", todolistSize)
+        startActivity(intent)
+    }
+
+    /* 뒤로가기 두번 시 프로그램 종료 */
+    private var pressedTime: Long = 0
+
+    private val callback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            //마지막으로 누른 '뒤로가기' 버튼 클릭 시간이 이전의 '뒤로가기' 버튼 클릭 시간과의 차이가 2초보다 크면
+            if(System.currentTimeMillis() > pressedTime + 2000){
+                //현재 시간을 pressedTime 에 저장
+                pressedTime = System.currentTimeMillis();
+                Toast.makeText(getApplicationContext(),"뒤로가기를 한번 더 누르면 종료합니다.", Toast.LENGTH_SHORT).show();
+            }
+
+            //마지막 '뒤로가기' 버튼 클릭시간이 이전의 '뒤로가기' 버튼 클릭 시간과의 차이가 2초보다 작으면
+            else{
+                ActivityCompat.finishAffinity(this@MainActivity)
+            }
+        }
     }
 }

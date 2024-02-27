@@ -1,9 +1,5 @@
 package com.example.samgim.ui.character
 
-import android.app.Activity
-import android.app.Application
-import android.content.Context
-import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -21,8 +17,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
-import com.example.samgim.R
 import com.example.samgim.databinding.FragmentCharacterBinding
 
 class CharacterFragment : Fragment() {

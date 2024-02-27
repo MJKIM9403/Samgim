@@ -56,7 +56,6 @@ class TodolistFragment : Fragment() {
     ): View {
         _binding = FragmentTodolistBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
         return root
     }
 
