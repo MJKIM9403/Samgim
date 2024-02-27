@@ -83,24 +83,27 @@
 
     </LinearLayout>
 
-            <TextView
-                android:id="@+id/textViewDownload"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:gravity="center"
-                android:text="레벨업까지 nn점!"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/black"
-                android:textSize="15dp" />
+    <TextView
+        android:id="@+id/textViewDownload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:text="레벨업까지 nn점!"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black"
+        android:textSize="15dp" />
+    <Button
+        android:id="@+id/reset_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="주먹밥 새로 뭉치기"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:padding="10dp"/>
 
-<!--    <androidx.appcompat.widget.AppCompatButton-->
-<!--        android:id="@+id/btnDownload"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginHorizontal="40dp"-->
-<!--        android:layout_marginVertical="20dp"-->
-<!--        android:text="DOWNLOAD" />-->
+
 
 
 </LinearLayout>

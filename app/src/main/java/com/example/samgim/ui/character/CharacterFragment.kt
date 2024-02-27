@@ -1,11 +1,14 @@
 package com.example.samgim.ui.character
 
+import android.R.attr
+import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -15,9 +18,13 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.samgim.R
 import com.example.samgim.databinding.FragmentCharacterBinding
+
 
 class CharacterFragment : Fragment() {
 
@@ -42,20 +49,15 @@ class CharacterFragment : Fragment() {
 
         viewModelFactory = CharacterViewModelFactory(context.application)
         viewModel = ViewModelProvider(context, viewModelFactory).get(CharacterViewModel::class.java)
+        binding.editBtn.setColorFilter(Color.parseColor("#FFFFFF"))
 
         setExp()
         setImg()
         setName()
 
-        setLevelObserver()
-
         editName()
-        binding.editBtn.setColorFilter(Color.parseColor("#FFFFFF"))
-    }
-    private fun setLevelObserver() {
-        viewModel.level.observe(viewLifecycleOwner, Observer {
-            Log.d("test", "levelupevent, ${viewModel.level.value}")
-        })
+        resetState()
+
     }
 
     private fun setName() {
@@ -123,6 +125,36 @@ class CharacterFragment : Fragment() {
                 name.backgroundTintList = ContextCompat.getColorStateList(requireActivity(),android.R.color.darker_gray)
             }
         }
+    }
+
+    private fun resetState() {
+        val resetBtn: Button = binding.resetBtn
+
+        if(viewModel.level.value!! < viewModel.getMaxLevel()){
+            resetBtn.visibility = View.GONE
+        }else {
+            resetBtn.setOnClickListener {
+                val builder = AlertDialog.Builder(requireActivity())
+                builder.setTitle("새로 뭉치기")
+                builder.setMessage(R.string.reset_warning_msg)
+                // "예" 버튼 클릭 시 이벤트 처리
+                builder.setPositiveButton("예") { dialog, which ->
+                    viewModel.reset()
+                    Toast.makeText(requireActivity(), "초기화 되었습니다.", Toast.LENGTH_SHORT).show()
+                    refreshFragment(this)
+                }
+                // "아니오" 버튼 클릭 시 이벤트 처리
+                builder.setNegativeButton("아니오") { dialog, which ->
+                    // 아무 동작 없음
+                }
+                builder.show()
+            }
+        }
+    }
+
+    private fun refreshFragment(fragment: Fragment) {
+        val ft: FragmentTransaction = context.supportFragmentManager.beginTransaction()
+        ft.detach(fragment).attach(fragment).commit()
     }
 
     override fun onDestroyView() {

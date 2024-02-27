@@ -128,4 +128,9 @@ class CharacterViewModel(application: Application) : AndroidViewModel(applicatio
     fun getMaxLevel(): Int {
         return maxLevel
     }
+
+    fun reset() {
+        prefEditor.clear()
+        prefEditor.apply()
+    }
 }
