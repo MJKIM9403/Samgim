@@ -98,14 +98,16 @@
                     android:text="취소"
                     android:id="@+id/cancelBtn"
                     android:textColor="@color/white"
-                    android:background="@drawable/button2" />
+                    android:background="@drawable/button2"
+                    android:layout_margin="10dp"/>
                 <android.widget.Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="등록"
                     android:id="@+id/addBtn"
                     android:textColor="@color/white"
-                    android:background="@drawable/button1"/>
+                    android:background="@drawable/button1"
+                    android:layout_margin="10dp"/>
         </LinearLayout>
 
 

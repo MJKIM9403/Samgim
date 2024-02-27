@@ -2,6 +2,7 @@ package com.example.samgim.ui.todolist
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
 import android.content.SharedPreferences
 import android.icu.text.SimpleDateFormat
@@ -10,7 +11,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -150,14 +153,16 @@ class TodolistFragment : Fragment() {
         val image = ImageView(requireActivity())
         image.setImageResource(R.drawable.damgomb)
 
-        val builder = AlertDialog.Builder(requireActivity())
-        builder.setTitle("레벨 업!")
-        builder.setView(image)
-        builder.setMessage("오잉...? ${name}의 상태가...?!")
-        builder.setNeutralButton("상태를 보러가기"){ dialog, which ->
+        val dialog = Dialog(requireActivity())
+        dialog.setContentView(R.layout.level_up_dialog)
+        val text = dialog.findViewById<TextView>(R.id.evolution_msg)
+        val showCharBtn = dialog.findViewById<Button>(R.id.show_char_btn)
+        text.text = "...... 오잉?!\n${name}의 상태가......!"
+        showCharBtn.setOnClickListener {
             todoToChar()
+            dialog.dismiss()
         }
-        builder.show()
+        dialog.show()
     }
 
     fun todoToChar() {
@@ -175,6 +180,8 @@ class TodolistFragment : Fragment() {
         Log.d("test","today: $todayExp")
         return todayExp
     }
+
+
 
 
 }
