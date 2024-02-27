@@ -77,8 +77,6 @@ class TodoAdapter(val context: Context,
             check?.isChecked = todolist.todo_check
             todoPoint?.text = "[${selectPoint}pt]"
 
-            categoryImg?.setColorFilter(Color.parseColor("#FFFFFFFF"))
-
             when(todolist.category){
                 "식사" -> {
                     categoryImg?.apply {
