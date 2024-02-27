@@ -10,7 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="75dp"
         android:orientation="horizontal"
         android:layout_marginVertical="10dp">
         <LinearLayout
@@ -30,11 +30,12 @@
                 android:id="@+id/todo_category_img"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="12dp"
                 app:civ_border_width="4dp"
                 app:civ_border_color="@color/white"
                 app:civ_border_overlay="false"
-                app:civ_circle_background_color="@color/purple_700" />
+                android:tint="@color/white"
+                app:civ_circle_background_color="@color/green_700" />
             <TextView
                 android:textSize="10dp"
                 android:layout_gravity="center"
@@ -72,7 +73,7 @@
             android:id="@+id/todo_point"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="26dp"
+            android:layout_marginTop="28dp"
             android:text="[10pt]"
             app:layout_constraintEnd_toStartOf="@id/check1"
             app:layout_constraintTop_toTopOf="parent"
@@ -86,7 +87,7 @@
             android:layout_marginBottom="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="13dp"/>
+            android:layout_marginTop="15dp"/>
         <TextView
             android:id="@+id/todo_regdate"
             android:layout_width="wrap_content"

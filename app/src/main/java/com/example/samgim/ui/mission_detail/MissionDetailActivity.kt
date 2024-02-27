@@ -58,9 +58,7 @@ class MissionDetailActivity : AppCompatActivity() {
                         binding.todoId.text = it.listId.toString()
                         binding.spinner.setSelection(findCategoryIndex(it.category))
                         binding.writeTitle.setText(it.title)
-                        binding.writeTitle.setTextColor(ContextCompat.getColor(applicationContext!!,R.color.black))
                         binding.writeMemo.setText(it.contents)
-                        binding.writeMemo.setTextColor(ContextCompat.getColor(applicationContext!!,R.color.black))
                         // Date 타입의 regdate를 문자열로 포매팅
                         binding.todoRegdate.text =
                             SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(it.regdate)

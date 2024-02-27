@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:paddingTop="70dp"
     android:paddingBottom="50dp"
-    android:paddingHorizontal="30dp">
+    android:paddingHorizontal="30dp"
+    android:clipToPadding="false">
 
     <ImageView
         android:id="@+id/silhouette_img"
