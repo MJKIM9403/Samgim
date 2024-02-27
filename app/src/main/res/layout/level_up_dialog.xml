@@ -1,7 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:paddingTop="50dp"
+    android:paddingBottom="30dp"
+    android:paddingHorizontal="30dp">
+
+    <ImageView
+        android:id="@+id/silhouette_img"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/tutorial004"/>
+    <TextView
+        android:id="@+id/evolution_msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="...... 오잉?!\n김밥이의 상태가......!"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:padding="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/evolution"/>
+    <Button
+        android:id="@+id/show_char_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="보러가기"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal" />
+
 
 </LinearLayout>
