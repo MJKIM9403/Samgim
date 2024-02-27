@@ -129,7 +129,7 @@ class MissionEditActivity : AppCompatActivity() {
                     // 데이터베이스에 업데이트된 미션 저장
                     todoDB?.getDAO()?.updateTodos(it)
 
-                    // UI 스레드에서 토스트 메시지를 표시합니다.
+
                     withContext(Dispatchers.Main) {
                         Toast.makeText(this@MissionEditActivity, "수정 완료되었습니다.", Toast.LENGTH_SHORT).show()
                     }
@@ -179,9 +179,9 @@ class MissionEditActivity : AppCompatActivity() {
                     withContext(Dispatchers.IO) {
                         todoDB?.getDAO()?.deleteTodos(listId)
                     }
-                    // UI 갱신
+
                     todoDB?.getDAO()?.getAll()
-                    // UI 스레드에서 토스트 메시지를 표시합니다.
+
                     withContext(Dispatchers.Main) {
                         Toast.makeText(this@MissionEditActivity, "삭제 완료되었습니다.", Toast.LENGTH_SHORT).show()
                     }

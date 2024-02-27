@@ -45,9 +45,9 @@ class TutorialActivity : AppCompatActivity() {
                 when (position) {
                     0 -> R.drawable.tutorial01
                     1 -> R.drawable.tutorial02
-                    2 -> R.drawable.img02
+                    2 -> R.drawable.tutorial03
                     3 -> R.drawable.tutorial004
-                    else -> R.drawable.img00
+                    else -> R.drawable.tutorial004
                 },
                 when (position) {
                     0 -> "자신만의 중요도를 설정!"

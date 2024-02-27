@@ -50,7 +50,7 @@ class DetailFragment : Fragment() {
                         // Date 타입의 regdate를 문자열로 포매팅
                         binding.todoRegdate.text =
                             SimpleDateFormat("yyyy-MM-dd").format(it.regdate)
-                        // todo_check와 관련된 UI 업데이트 (예시)
+                        // todo_check 값에 따라 이미지 변경
                         if(todolist.todo_check) {
                             binding.todoCheck.setImageResource(R.drawable.sentiment_excited)
                         } else {
