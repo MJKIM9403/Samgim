@@ -22,7 +22,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="오늘의 미션 수정"
+                android:text="오늘의 미션"
                 android:textSize="20dp"
                 android:textStyle="bold" />
             <TextView
