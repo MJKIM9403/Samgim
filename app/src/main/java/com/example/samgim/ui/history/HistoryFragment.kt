@@ -34,8 +34,6 @@ class HistoryFragment : Fragment() {
 
     private var historyCount: Int = 0
 
-    private lateinit var recyclerView: RecyclerView
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,6 +70,18 @@ class HistoryFragment : Fragment() {
             }
         }
 
+        showBtn.setOnClickListener { // 버튼 click 시 선택 된 날짜에 등록된 미션 정보 불러옴
+            if(historyCount > 0){
+//                val itemHeight = 267
+//                val layoutParams = historyLayout.layoutParams
+//                layoutParams.height = itemHeight * historyCount
+                historyLayout.visibility = View.VISIBLE
+            }else if(historyCount == 0) {
+                Toast.makeText(requireActivity(), "선택된 날짜에 기록된 미션이 없습니다.", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
         todoDB = TodolistDB.getInstance(requireActivity())
         hAdapter = HistoryAdapter(requireActivity(), historyList, object : HistoryAdapter.OnItemClickListener {
             override fun onItemClick(todolist: Todolist) {
@@ -83,46 +93,13 @@ class HistoryFragment : Fragment() {
             }
         })
 
-        recyclerView = binding.recyclerView2
+        val recyclerView = binding.recyclerView2
         recyclerView.adapter = hAdapter
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
 
-        showBtn.setOnClickListener { // 버튼 click 시 선택 된 날짜에 등록된 미션 정보 불러옴
-            if(historyCount > 0){
-                val itemHeight = 267
-                val layoutParams = historyLayout.layoutParams
-                layoutParams.height = itemHeight * historyCount
-                historyLayout.visibility = View.VISIBLE
-            }else if(historyCount == 0) {
-                Toast.makeText(requireActivity(), "선택된 날짜에 기록된 미션이 없습니다.", Toast.LENGTH_SHORT).show()
-            }
-
-        }
     }
 
-//    private fun fetchHistory() {
-//        val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-//        val todayStr = format.format(Date())
-//        val today: Date = format.parse(todayStr) ?: Date()
-//
-//        val r = Runnable {
-//            try {
-//                historyList = todoDB?.getDAO()?.getAll()?.filter {
-//                    it.regdate.before(today)
-//                } ?: listOf()
-//
-//                activity?.runOnUiThread {
-//                    hAdapter.updateData(historyList)
-//                    hAdapter.notifyDataSetChanged()
-//                }
-//            } catch (e: Exception) {
-//                Log.d("HistoryFragment", "Error - $e")
-//            }
-//        }
-//
-//        Thread(r).start()
-//    }
 
 
     override fun onDestroyView() {
