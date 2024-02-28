@@ -14,8 +14,10 @@ import android.widget.DatePicker
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.samgim.databinding.FragmentHistoryBinding
 import com.example.samgim.ui.DB.Todolist
 import com.example.samgim.ui.DB.TodolistDB
@@ -31,6 +33,8 @@ class HistoryFragment : Fragment() {
     private lateinit var hAdapter: HistoryAdapter
 
     private var historyCount: Int = 0
+
+    private lateinit var recyclerView: RecyclerView
 
 
     override fun onCreateView(
@@ -67,15 +71,6 @@ class HistoryFragment : Fragment() {
             }
         }
 
-        showBtn.setOnClickListener { // 버튼 click 시 선택 된 날짜에 등록된 미션 정보 불러옴
-            if(historyCount > 0){
-                historyLayout.visibility = View.VISIBLE
-            }else if(historyCount == 0) {
-                Toast.makeText(requireActivity(), "선택된 날짜에 기록된 미션이 없습니다.", Toast.LENGTH_SHORT).show()
-            }
-
-        }
-
         todoDB = TodolistDB.getInstance(requireActivity())
         hAdapter = HistoryAdapter(requireActivity(), historyList, object : HistoryAdapter.OnItemClickListener {
             override fun onItemClick(todolist: Todolist) {
@@ -87,10 +82,22 @@ class HistoryFragment : Fragment() {
             }
         })
 
+        recyclerView = binding.recyclerView2
+        recyclerView.adapter = hAdapter
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.setHasFixedSize(true)
 
-        binding.recyclerView2.adapter = hAdapter
-        binding.recyclerView2.layoutManager = LinearLayoutManager(context)
-        binding.recyclerView2.setHasFixedSize(true)
+        showBtn.setOnClickListener { // 버튼 click 시 선택 된 날짜에 등록된 미션 정보 불러옴
+            if(historyCount > 0){
+                val itemHeight = 267
+                val layoutParams = historyLayout.layoutParams
+                layoutParams.height = itemHeight * historyCount
+                historyLayout.visibility = View.VISIBLE
+            }else if(historyCount == 0) {
+                Toast.makeText(requireActivity(), "선택된 날짜에 기록된 미션이 없습니다.", Toast.LENGTH_SHORT).show()
+            }
+
+        }
     }
 
 //    private fun fetchHistory() {

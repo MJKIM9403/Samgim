@@ -26,8 +26,12 @@ class HistoryAdapter(val context: Context,
 
     RecyclerView.Adapter<HistoryAdapter.Holder>() {
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(context).inflate(R.layout.history_item, parent, false)
+        val layoutParams = view.layoutParams
+        layoutParams.height = getRecyclerViewItemHeight(context, view)
+        view.layoutParams = layoutParams
         return Holder(view)
     }
 
@@ -114,6 +118,19 @@ class HistoryAdapter(val context: Context,
     fun updateData(newTodoList: List<Todolist>) {
         this.todos = newTodoList
         notifyDataSetChanged()
+    }
+
+    fun getRecyclerViewItemHeight(context: Context, itemView: View): Int {
+        val widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(
+            context.resources.displayMetrics.widthPixels,
+            View.MeasureSpec.EXACTLY
+        )
+        val heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(
+            0,
+            View.MeasureSpec.UNSPECIFIED
+        )
+        itemView.measure(widthMeasureSpec, heightMeasureSpec)
+        return itemView.measuredHeight
     }
 
     interface OnItemClickListener {
