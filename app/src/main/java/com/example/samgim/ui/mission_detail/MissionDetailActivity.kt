@@ -113,7 +113,7 @@ class MissionDetailActivity : AppCompatActivity() {
     // 삭제 로직
     fun showDeleteConfirmationDialog() {
         val dialogBuilder = AlertDialog.Builder(this)
-            .setTitle("오늘의 미션을 정말로 삭제하시겠습니까?")
+            .setTitle("미션을 정말로 삭제하시겠습니까?")
             .setMessage("미션을 지우면 복구가 불가능합니다.")
             .setPositiveButton("예") { dialog, which ->
                 // "예" 버튼을 눌렀을 때의 동작 구현

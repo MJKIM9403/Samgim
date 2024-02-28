@@ -2,11 +2,14 @@ package com.example.samgim.ui.mission_edit
 
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -165,36 +168,11 @@ class MissionEditActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    // 삭제 로직
-    fun showDeleteConfirmationDialog() {
-        val dialogBuilder = AlertDialog.Builder(this)
-            .setTitle("오늘의 미션을 정말로 삭제하시겠습니까?")
-            .setMessage("미션을 지우면 복구가 불가능합니다.")
-            .setPositiveButton("예") { dialog, which ->
-                // "예" 버튼을 눌렀을 때의 동작 구현
-                CoroutineScope(Dispatchers.IO).launch {
-                    // todoId를 사용하여 listId 초기화
-                    val listId = todoId
-                    // 데이터베이스에서 항목 삭제
-                    withContext(Dispatchers.IO) {
-                        todoDB?.getDAO()?.deleteTodos(listId)
-                    }
-
-                    todoDB?.getDAO()?.getAll()
-
-                    withContext(Dispatchers.Main) {
-                        Toast.makeText(this@MissionEditActivity, "삭제 완료되었습니다.", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                finish()
-            }
-            .setNegativeButton("아니오", null)
-            .create()
-
-        dialogBuilder.show()
+    // EditText 영역 외에 클릭할 때 키보드 내리기
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+        return true
     }
-
-    // 키보드 외의 영역 누르면 키보드 내리기
-
 }
 
