@@ -103,12 +103,13 @@ class MainActivity : AppCompatActivity() {
             if(System.currentTimeMillis() > pressedTime + 2000){
                 //현재 시간을 pressedTime 에 저장
                 pressedTime = System.currentTimeMillis();
-                Toast.makeText(getApplicationContext(),"뒤로가기를 한번 더 누르면 종료합니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"뒤로가기를 한번 더 누르면 종료.", Toast.LENGTH_SHORT).show();
             }
 
             //마지막 '뒤로가기' 버튼 클릭시간이 이전의 '뒤로가기' 버튼 클릭 시간과의 차이가 2초보다 작으면
             else{
-                ActivityCompat.finishAffinity(this@MainActivity)
+                ActivityCompat.finishAffinity(this@MainActivity);
+                exitProcess(0);
             }
         }
     }

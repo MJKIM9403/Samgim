@@ -51,15 +51,13 @@ class HistoryFragment : Fragment() {
         val showBtn : Button = binding.button1 //Button id
         val historyLayout : LinearLayout = binding.historyLayout
 
-        val calendar: Calendar = Calendar.getInstance()
-        val minDate = calendar
-        val maxDate = calendar
+
+        val minDate = Calendar.getInstance()
+        val maxDate = Calendar.getInstance()
 
         minDate.set(2020,1-1,1) // 보여줄 최소 날짜
-
         picker.minDate = minDate.time.time // 보여줄 최소 날짜 picker에 Set
 
-        maxDate.set(2026,1-1,1) // 보여줄 최대 날짜
         picker.maxDate = maxDate.timeInMillis  // 보여줄 최대 날짜  picker에 적용 Set
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -72,9 +70,6 @@ class HistoryFragment : Fragment() {
 
         showBtn.setOnClickListener { // 버튼 click 시 선택 된 날짜에 등록된 미션 정보 불러옴
             if(historyCount > 0){
-//                val itemHeight = 267
-//                val layoutParams = historyLayout.layoutParams
-//                layoutParams.height = itemHeight * historyCount
                 historyLayout.visibility = View.VISIBLE
             }else if(historyCount == 0) {
                 Toast.makeText(requireActivity(), "선택된 날짜에 기록된 미션이 없습니다.", Toast.LENGTH_SHORT).show()

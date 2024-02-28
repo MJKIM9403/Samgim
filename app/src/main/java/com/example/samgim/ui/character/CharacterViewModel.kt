@@ -58,7 +58,7 @@ class CharacterViewModel(application: Application) : AndroidViewModel(applicatio
         _currentLevelAccumulatedExp.value = accumulateExp(_level.value!!)
         _currentExpToShow.value = (totalExp.value)?.minus(_currentLevelAccumulatedExp.value!!)
         _characterImage.value = characterImages[_level.value!! - 1]
-        _characterName.value = pref.getString("characterName", "김밥이")
+        _characterName.value = pref.getString("characterName", "쌀알이")
         _todayExp.value = pref.getInt("todayExp", 0)
     }
 
@@ -89,7 +89,7 @@ class CharacterViewModel(application: Application) : AndroidViewModel(applicatio
         prefEditor.putString("characterName", name)
         prefEditor.apply()
 
-        _characterName.value = pref.getString("characterName", "김밥이")
+        _characterName.value = pref.getString("characterName", "쌀알이")
     }
 
 
