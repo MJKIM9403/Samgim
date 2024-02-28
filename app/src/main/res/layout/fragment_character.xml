@@ -93,7 +93,7 @@
         android:layout_marginTop="10dp"
         android:textColor="@color/black"
         android:textSize="15dp" />
-    <Button
+    <android.widget.Button
         android:id="@+id/reset_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -101,7 +101,10 @@
         android:textStyle="bold"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:padding="10dp"/>
+        android:padding="10dp"
+        android:background="@drawable/button1"
+        android:textColor="@color/white"
+        android:clipToPadding="false"/>
 
 
 
